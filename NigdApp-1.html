@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#16A34A"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="ግብርና ሱቅ"/>
+<title>🌱 ግብርና ሱቅ</title>
+<link rel="manifest" id="mp"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans Ethiopic','Segoe UI',sans-serif;background:#F0FDF4;color:#1C2B1A;min-height:100vh;padding-bottom:84px;}
+input,select,button{font-family:inherit;}
+/* header */
+.hdr{background:linear-gradient(135deg,#16A34A,#15803D);padding:12px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #00000022;}
+.hdr-in{max-width:560px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.hdr h1{font-size:18px;font-weight:800;color:#fff;}
+.hdr .sub{font-size:11px;color:#BBF7D0;margin-top:1px;}
+.out-btn{background:#ffffff22;border:none;color:#fff;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;}
+/* layout */
+.main{max-width:560px;margin:0 auto;padding:14px 14px 10px;}
+/* cards */
+.card{background:#fff;border-radius:16px;padding:16px;border:1px solid #BBF7D0;box-shadow:0 2px 8px #00000008;margin-bottom:12px;}
+.card.warn{background:#FEF2F2;border-color:#EF444433;}
+.card.gold{background:#FEF9C3;border-color:#CA8A0433;}
+.card.grn{background:#DCFCE7;border-color:#16A34A33;}
+/* stats */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sv{font-size:17px;font-weight:800;}
+.sv.g{color:#16A34A;} .sv.go{color:#CA8A04;} .sv.a{color:#15803D;}
+.sl{font-size:11px;color:#6B7280;margin-top:2px;}
+/* section title */
+.st{font-size:13px;font-weight:700;color:#15803D;margin-bottom:10px;}
+/* rows */
+.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #BBF7D0;font-size:13px;}
+.row:last-child{border-bottom:none;}
+.rn{font-weight:600;} .rs{font-size:11px;color:#6B7280;margin-top:1px;} .rv{font-size:14px;font-weight:800;color:#16A34A;}
+.wr{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #EF444411;}
+.wv{font-weight:700;color:#EF4444;}
+/* inputs */
+.inp{width:100%;border:1.5px solid #BBF7D0;border-radius:10px;padding:9px 12px;font-size:14px;color:#1C2B1A;outline:none;background:#fff;margin-bottom:9px;}
+.inp:focus{border-color:#16A34A;}
+.lbl{font-size:11px;font-weight:600;color:#6B7280;margin-bottom:3px;}
+/* buttons */
+.btn{padding:9px 16px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.btn.p{background:#16A34A;color:#fff;} .btn.p:active{background:#15803D;}
+.btn.d{background:#EF4444;color:#fff;}
+.btn.g{background:#F3F4F6;color:#374151;}
+.btn.full{width:100%;padding:13px;font-size:15px;}
+/* flex row */
+.fr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.cat-card{background:#fff;border-radius:16px;padding:16px 12px;border:2px solid #BBF7D0;cursor:pointer;text-align:center;transition:all 0.2s;box-shadow:0 2px 8px #00000008;}
+.cat-card:active{transform:scale(0.97);}
+.cat-card.active{border-color:#16A34A;background:#DCFCE7;}
+.cat-icon{font-size:32px;margin-bottom:6px;}
+.cat-name{font-size:13px;font-weight:700;color:#1C2B1A;}
+.cat-count{font-size:11px;color:#6B7280;margin-top:2px;}
+/* back button */
+.back-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:#16A34A;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:14px;padding:0;}
+/* product item */
+.pi{background:#fff;border-radius:14px;padding:12px;border:1px solid #BBF7D0;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.pic{width:42px;height:42px;border-radius:10px;background:#DCFCE7;border:1px solid #BBF7D0;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pic.low{background:#FEF2F2;border-color:#EF4444;}
+.pinfo{flex:1;}
+.pname{font-weight:700;font-size:14px;}
+.pcat{font-size:11px;color:#6B7280;margin-top:1px;}
+.pqty{font-size:11px;margin-top:2px;}
+.pqty .q{font-weight:700;color:#16A34A;} .pqty .q.low{color:#EF4444;}
+.pact{display:flex;flex-direction:column;gap:5px;}
+.ib{border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:13px;}
+.ib.e{background:#F3F4F6;} .ib.dl{background:#FEF2F2;}
+/* sale item */
+.si{background:#fff;border-radius:14px;padding:12px;border:1px solid #BBF7D0;margin-bottom:8px;}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;}
+.sn{font-weight:700;font-size:14px;} .sm{font-size:11px;color:#6B7280;margin-top:2px;}
+.st2{font-size:15px;font-weight:800;color:#16A34A;} .sp{font-size:10px;color:#15803D;}
+/* bottom nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #BBF7D0;padding:5px 14px 10px;box-shadow:0 -4px 20px #00000010;}
+.bnav-in{max-width:560px;margin:0 auto;display:flex;gap:5px;}
+.nb{flex:1;padding:8px 2px;border:none;border-radius:11px;background:transparent;color:#6B7280;font-size:11px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all 0.2s;}
+.nb.active{background:#16A34A;color:#fff;}
+.ni{font-size:19px;}
+/* modals */
+.mbg{position:fixed;inset:0;background:#00000066;z-index:200;display:flex;align-items:flex-end;justify-content:center;}
+.mod{background:#fff;border-radius:20px 20px 0 0;padding:22px 18px 30px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;}
+.mt{font-size:16px;font-weight:800;margin-bottom:16px;}
+.ma{display:flex;gap:10px;margin-top:6px;}
+.cmod{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:340px;text-align:center;}
+.cmod .bi{font-size:38px;margin-bottom:10px;}
+.cmod h3{font-size:15px;font-weight:700;margin-bottom:7px;}
+.cmod p{font-size:12px;color:#6B7280;margin-bottom:18px;}
+.ca{display:flex;gap:10px;}
+/* total preview */
+.tp{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:10px;padding:9px 13px;margin-bottom:12px;font-size:13px;}
+.tp strong{color:#16A34A;}
+/* toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1C2B1A;color:#fff;border-radius:12px;padding:9px 18px;font-size:13px;font-weight:600;z-index:300;white-space:nowrap;box-shadow:0 4px 20px #00000044;}
+.empty{color:#9CA3AF;font-size:13px;text-align:center;padding:28px;}
+/* login */
+.lbg{min-height:100vh;background:linear-gradient(160deg,#16A34A,#15803D 60%,#052e16);display:flex;align-items:center;justify-content:center;padding:20px;}
+.lcard{background:#fff;border-radius:22px;padding:34px 26px;width:100%;max-width:360px;box-shadow:0 20px 60px #00000044;}
+.llogo{text-align:center;margin-bottom:24px;}
+.llogo .em{font-size:50px;margin-bottom:6px;}
+.llogo h2{font-size:22px;font-weight:800;color:#15803D;}
+.llogo p{font-size:12px;color:#6B7280;margin-top:3px;}
+.ibox{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:11px;padding:9px 13px;font-size:12px;color:#15803D;margin-bottom:16px;line-height:1.6;}
+.err{color:#EF4444;font-size:12px;margin-top:-6px;margin-bottom:7px;}
+.rr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #BBF7D0;font-size:13px;}
+.rr span:first-child{color:#6B7280;} .rr span:last-child{font-weight:700;}
+select.inp{appearance:auto;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── Categories ─────────────────────────────────────────────────────────────
+const CATS = [
+  { id:'kimikali', name:'ኬሚካል',      icon:'🧪', color:'#7C3AED', bg:'#F5F3FF' },
+  { id:'madaberiya',name:'ማዳበሪያ',    icon:'🌾', color:'#CA8A04', bg:'#FEF9C3' },
+  { id:'arem',     name:'የአረም ማጥፊያ', icon:'🌿', color:'#16A34A', bg:'#DCFCE7' },
+  { id:'til',      name:'የትል መድሃኒት', icon:'🐛', color:'#DC2626', bg:'#FEF2F2' },
+  { id:'bereero',  name:'የበረሮ/ተባይ',  icon:'🪲', color:'#EA580C', bg:'#FFF7ED' },
+  { id:'zer',      name:'ዘሮች',        icon:'🌱', color:'#059669', bg:'#ECFDF5' },
+  { id:'messa',    name:'መሳሪያ/መስኖ',  icon:'🚿', color:'#0284C7', bg:'#F0F9FF' },
+  { id:'other',    name:'ሌሎች',        icon:'📦', color:'#6B7280', bg:'#F9FAFB' },
+];
+
+// ── Storage ────────────────────────────────────────────────────────────────
+const SKEY = u => 'grb_' + u.replace(/\s/g,'_').toLowerCase();
+function loadData(u){ try{ const r=localStorage.getItem(SKEY(u)); return r?JSON.parse(r):null; }catch(e){return null;} }
+function saveData(u,p,s,t){ try{ localStorage.setItem(SKEY(u),JSON.stringify({products:p,sales:s,trash:t||[]})); }catch(e){} }
+
+// ── Demo data ──────────────────────────────────────────────────────────────
+const DEMO = {
+  products:[
+    {id:'p1',name:'ራውንድ አፕ',      category:'arem',      quantity:50, buyPrice:380, sellPrice:550, unit:'ሊ'},
+    {id:'p2',name:'ግራሞክሶን',        category:'arem',      quantity:30, buyPrice:420, sellPrice:600, unit:'ሊ'},
+    {id:'p3',name:'ኮንፊዶር',         category:'kimikali',  quantity:40, buyPrice:250, sellPrice:380, unit:'ሊ'},
+    {id:'p4',name:'ዳይሜቶኤት',        category:'til',       quantity:25, buyPrice:300, sellPrice:450, unit:'ሊ'},
+    {id:'p5',name:'ሳይፐርሜትሪን',     category:'bereero',   quantity:35, buyPrice:200, sellPrice:320, unit:'ሊ'},
+    {id:'p6',name:'ዩሪያ ማዳበሪያ',    category:'madaberiya', quantity:120,buyPrice:1800,sellPrice:2200,unit:'ከረጢት'},
+    {id:'p7',name:'DAP ማዳበሪያ',     category:'madaberiya', quantity:80, buyPrice:2200,sellPrice:2700,unit:'ከረጢት'},
+    {id:'p8',name:'የበቆሎ ዘር BH-540',category:'zer',       quantity:60, buyPrice:450, sellPrice:650, unit:'ኪ.ግ'},
+    {id:'p9',name:'የስንዴ ዘር',       category:'zer',       quantity:90, buyPrice:280, sellPrice:420, unit:'ኪ.ግ'},
+    {id:'p10',name:'ድሪፕ ቱቦ',       category:'messa',     quantity:10, buyPrice:3500,sellPrice:5000,unit:'ጥቅል'},
+  ],
+  sales:[
+    {id:'s1',productId:'p6',productName:'ዩሪያ ማዳበሪያ',  qty:5, price:2200,total:11000,date:'2026-05-06'},
+    {id:'s2',productId:'p1',productName:'ራውንድ አፕ',    qty:8, price:550, total:4400, date:'2026-05-07'},
+    {id:'s3',productId:'p8',productName:'የበቆሎ ዘር BH-540',qty:10,price:650,total:6500,date:'2026-05-08'},
+  ]
+};
+
+// ── Utils ──────────────────────────────────────────────────────────────────
+const ETB = n => Number(n||0).toLocaleString()+' ብር';
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today = () => new Date().toISOString().slice(0,10);
+const getCat = id => CATS.find(c=>c.id===id)||CATS[CATS.length-1];
+
+// ── State ──────────────────────────────────────────────────────────────────
+let S = {
+  user:null, products:[], sales:[], trash:[], tab:'dash',
+  selCat:null,
+  showPForm:false, editP:null,
+  pF:{name:'',category:'arem',quantity:'',buyPrice:'',sellPrice:'',unit:'ሊ'},
+  showSForm:false,
+  sF:{productId:'',qty:'',date:today()},
+  confDel:null,
+  pSearch:'', sSearch:'',
+  loginVal:'', loginErr:'',
+  toast:null, toastTimer:null,
+};
+
+function set(patch){ Object.assign(S,patch); if(patch.user!==undefined){ patch.user?localStorage.setItem('grb_session',patch.user):localStorage.removeItem('grb_session'); } render(); }
+function toast(msg){ if(S.toastTimer)clearTimeout(S.toastTimer); const t=setTimeout(()=>set({toast:null,toastTimer:null}),2200); set({toast:msg,toastTimer:t}); }
+
+// ── Actions ────────────────────────────────────────────────────────────────
+function login(){
+  const v=S.loginVal.trim();
+  if(!v){set({loginErr:'ስልክ ቁጥር ወይም Email አስገቡ'});return;}
+  const ok=/^[0-9+]{7,15}$/.test(v.replace(/\s/g,''))||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if(!ok){set({loginErr:'ትክክለኛ ስልክ ቁጥር ወይም Email አስገቡ'});return;}
+  const d=loadData(v);
+  set({user:v,products:d?d.products:DEMO.products,sales:d?d.sales:DEMO.sales,trash:d?d.trash||[]:[], loginErr:''});
+}
+function logout(){ set({user:null,products:[],sales:[],tab:'dash',selCat:null,loginVal:'',loginErr:''}); }
+
+function saveProd(){
+  const f=S.pF;
+  if(!f.name||!f.quantity||!f.sellPrice){toast('⚠️ ስም፣ ብዛት፣ ዋጋ ያስፈልጋል');return;}
+  let ps;
+  if(S.editP) ps=S.products.map(p=>p.id===S.editP.id?{...p,...f,quantity:+f.quantity,buyPrice:+f.buyPrice,sellPrice:+f.sellPrice}:p);
+  else ps=[...S.products,{id:uid(),...f,quantity:+f.quantity,buyPrice:+f.buyPrice,sellPrice:+f.sellPrice}];
+  saveData(S.user,ps,S.sales);
+  set({products:ps,showPForm:false,editP:null});
+  toast('✅ ዕቃ ተቀምጧል');
+}
+function delProd(id){
+  const p=S.products.find(x=>x.id===id);
+  if(!p)return;
+  const ps=S.products.filter(x=>x.id!==id);
+  const tr=[...S.trash,{...p,deletedAt:today()}];
+  saveData(S.user,ps,S.sales,tr);
+  set({products:ps,trash:tr,confDel:null});
+  toast('🗑️ ወደ ታሪክ ተወሰደ — መልሶ ማምጣት ይቻላል');
+}
+function restoreProd(id){
+  const p=S.trash.find(x=>x.id===id);
+  if(!p)return;
+  const tr=S.trash.filter(x=>x.id!==id);
+  const {deletedAt,...prod}=p;
+  const ps=[...S.products,prod];
+  saveData(S.user,ps,S.sales,tr);
+  set({products:ps,trash:tr});
+  toast('✅ ዕቃ ተመልሷል!');
+}
+function permDelete(id){
+  const tr=S.trash.filter(x=>x.id!==id);
+  saveData(S.user,S.products,S.sales,tr);
+  set({trash:tr});
+  toast('🗑️ ሙሉ በሙሉ ተሰርዟል');
+}
+function saveSale(){
+  const f=S.sF, prod=S.products.find(p=>p.id===f.productId);
+  if(!prod||!f.qty||+f.qty<=0){toast('⚠️ ዕቃ እና ብዛት ምረጡ');return;}
+  if(+f.qty>prod.quantity){toast('⚠️ ያለው ክምችት: '+prod.quantity+' '+prod.unit);return;}
+  const total=+f.qty*prod.sellPrice;
+  const ss=[...S.sales,{id:uid(),productId:prod.id,productName:prod.name,qty:+f.qty,price:prod.sellPrice,total,date:f.date}];
+  const ps=S.products.map(p=>p.id===prod.id?{...p,quantity:p.quantity-+f.qty}:p);
+  saveData(S.user,ps,ss);
+  set({sales:ss,products:ps,showSForm:false,sF:{productId:'',qty:'',date:today()}});
+  toast('✅ ሽያጭ ተመዝግቧል');
+}
+
+// ── Derived ────────────────────────────────────────────────────────────────
+function D(){
+  const {products:p,sales:s}=S;
+  const inv=p.reduce((a,x)=>a+x.quantity*x.buyPrice,0);
+  const rev=s.reduce((a,x)=>a+x.total,0);
+  const prof=s.reduce((a,x)=>{const pr=p.find(r=>r.id===x.productId);return a+(pr?(x.price-pr.buyPrice)*x.qty:0);},0);
+  const low=p.filter(x=>x.quantity<=10);
+  const fp=p.filter(x=>x.name.includes(S.pSearch)||getCat(x.category).name.includes(S.pSearch));
+  const fs=s.filter(x=>x.productName.includes(S.sSearch)||x.date.includes(S.sSearch));
+  return{inv,rev,prof,low,fp,fs};
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(){
+  const app=document.getElementById('app');
+  if(!S.user){app.innerHTML=rLogin();bindLogin();return;}
+  app.innerHTML=rMain();bindMain();
+}
+
+function rLogin(){return`
+<div class="lbg"><div class="lcard">
+  <div class="llogo"><div class="em">🌱</div><h2>ግብርና ሱቅ</h2><p>የግብርና ግብአት እና ኬሚካል</p></div>
+  <div class="lbl">ስልክ ቁጥር ወይም Email</div>
+  <input id="li" class="inp" placeholder="09xxxxxxxx ወይም name@email.com" value="${S.loginVal}" style="font-size:15px;padding:12px 14px;"/>
+  ${S.loginErr?`<div class="err">⚠️ ${S.loginErr}</div>`:''}
+  <div class="ibox">🔒 ውሂብዎ ስልክ ላይ ይቀመጣል። ያለ ኢንተርኔት ይሰራል።</div>
+  <button id="lb" class="btn p full">ግባ / ምዝገባ →</button>
+</div></div>`;}
+
+function rMain(){
+  const d=D();
+  return`
+  ${rHdr()}
+  <div class="main">
+    ${S.tab==='dash'?rDash(d):''}
+    ${S.tab==='inv'?rInv(d):''}
+    ${S.tab==='sales'?rSales(d):''}
+    ${S.tab==='report'?rReport(d):''}
+    ${S.tab==='trash'?rTrash():''}
+  </div>
+  ${rBnav()}
+  ${S.showPForm?rPMod():''}
+  ${S.showSForm?rSMod():''}
+  ${S.confDel?rConf():''}
+  ${S.toast?`<div class="toast">${S.toast}</div>`:''}
+`;}
+
+function rHdr(){return`
+<div class="hdr"><div class="hdr-in">
+  <div><h1>🌱 ግብርና ሱቅ</h1><div class="sub">${S.user}</div></div>
+  <button class="out-btn" id="ob">ውጣ</button>
+</div></div>`;}
+
+function rBnav(){
+  const tabs=[{k:'dash',i:'🏠',l:'ዋና ገጽ'},{k:'inv',i:'🌿',l:'ዕቃዎች'},{k:'sales',i:'💰',l:'ሽያጭ'},{k:'report',i:'📊',l:'ሪፖርት'},{k:'trash',i:'🗑️',l:'ታሪክ'}];
+  return`<div class="bnav"><div class="bnav-in">${tabs.map(t=>`<button class="nb ${S.tab===t.k?'active':''}" data-tab="${t.k}"><span class="ni">${t.i}</span><span>${t.l}</span></button>`).join('')}</div></div>`;}
+
+// DASHBOARD
+function rDash(d){return`
+<div class="g2">
+  <div class="card grn"><div style="font-size:20px;margin-bottom:5px">📦</div><div class="sv g">${S.products.reduce((s,p)=>s+p.quantity,0)} ቁ</div><div class="sl">ጠቅላላ ዕቃ</div></div>
+  <div class="card gold"><div style="font-size:20px;margin-bottom:5px">🏷️</div><div class="sv go">${ETB(d.inv)}</div><div class="sl">የዕቃ ዋጋ</div></div>
+  <div class="card grn"><div style="font-size:20px;margin-bottom:5px">💰</div><div class="sv g">${ETB(d.rev)}</div><div class="sl">ጠቅላላ ሽያጭ</div></div>
+  <div class="card grn"><div style="font-size:20px;margin-bottom:5px">📈</div><div class="sv a">${ETB(d.prof)}</div><div class="sl">ትርፍ</div></div>
+</div>
+${d.low.length>0?`<div class="card warn"><div class="st" style="color:#EF4444">⚠️ ዝቅተኛ ክምችት (${d.low.length})</div>${d.low.map(p=>`<div class="wr"><span>${p.name}</span><span class="wv">${p.quantity} ${p.unit}</span></div>`).join('')}</div>`:''}
+<div class="card"><div class="st">🕒 የቅርብ ሽያጮች</div>
+  ${S.sales.length===0?'<div class="empty">ሽያጭ ገና አልተመዘገበም</div>':S.sales.slice(-5).reverse().map(s=>`<div class="row"><div><div class="rn">${s.productName}</div><div class="rs">${s.date} · ${s.qty} ቁ</div></div><div class="rv">${ETB(s.total)}</div></div>`).join('')}
+</div>`;}
+
+// INVENTORY — with category grid
+function rInv(d){
+  // if no category selected → show category grid
+  if(!S.selCat) return rCatGrid();
+  // category selected → show products of that cat
+  const cat=getCat(S.selCat);
+  const catProds=S.products.filter(p=>p.category===S.selCat);
+  const filtered=catProds.filter(p=>p.name.includes(S.pSearch));
+  return`
+<div class="fr">
+  <button class="back-btn" id="back-cat">← ተመለስ</button>
+  <button class="btn p" id="ap-btn" style="font-size:13px;padding:8px 14px">+ አዲስ ዕቃ</button>
+</div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;background:${cat.bg};border:1.5px solid ${cat.color}33;border-radius:12px;padding:10px 14px;">
+  <span style="font-size:28px">${cat.icon}</span>
+  <div><div style="font-weight:800;font-size:15px;color:${cat.color}">${cat.name}</div><div style="font-size:11px;color:#6B7280">${catProds.length} ዕቃ</div></div>
+</div>
+<input class="inp" id="ps" placeholder="ዕቃ ፈልግ..." value="${S.pSearch}" style="margin-bottom:10px"/>
+${filtered.length===0?'<div class="empty">ዕቃ አልተገኘም — + አዲስ ዕቃ ጨምር</div>':filtered.map(p=>`
+<div class="pi">
+  <div class="pic ${p.quantity<=10?'low':''}" style="background:${cat.bg}">${cat.icon}</div>
+  <div class="pinfo">
+    <div class="pname">${p.name}</div>
+    <div class="pcat">${ETB(p.sellPrice)}</div>
+    <div class="pqty"><span class="q ${p.quantity<=10?'low':''}">${p.quantity} ${p.unit}</span> · ግዥ: ${ETB(p.buyPrice)}</div>
+  </div>
+  <div class="pact">
+    <button class="ib e" data-edit="${p.id}">✏️</button>
+    <button class="ib dl" data-del="${p.id}">🗑️</button>
+  </div>
+</div>`).join('')}`;}
+
+function rCatGrid(){
+  return`
+<div style="font-size:15px;font-weight:800;margin-bottom:14px">🌿 ምድቦች</div>
+<div class="cat-grid">
+${CATS.map(c=>{
+  const cnt=S.products.filter(p=>p.category===c.id).length;
+  return`<div class="cat-card" data-cat="${c.id}" style="border-color:${c.color}33">
+    <div class="cat-icon">${c.icon}</div>
+    <div class="cat-name" style="color:${c.color}">${c.name}</div>
+    <div class="cat-count">${cnt} ዕቃ</div>
+  </div>`;}).join('')}
+</div>`;}
+
+// SALES
+function rSales(d){return`
+<div class="fr">
+  <div style="font-size:15px;font-weight:800">💰 ሽያጮች (${S.sales.length})</div>
+  <button class="btn p" id="as-btn" style="font-size:13px;padding:8px 14px">+ ሽያጭ</button>
+</div>
+<input class="inp" id="ss" placeholder="ሽያጭ ፈልግ..." value="${S.sSearch}" style="margin-bottom:10px"/>
+${d.fs.length===0?'<div class="empty">ሽያጭ አልተገኘም</div>':d.fs.slice().reverse().map(s=>{
+  const pr=S.products.find(p=>p.id===s.productId);
+  const prof=pr?(s.price-pr.buyPrice)*s.qty:0;
+  return`<div class="si"><div class="sh"><div><div class="sn">${s.productName}</div><div class="sm">${s.date} · ${s.qty} ${pr?.unit||'ቁ'} × ${ETB(s.price)}</div></div><div style="text-align:right"><div class="st2">${ETB(s.total)}</div><div class="sp">ትርፍ: ${ETB(prof)}</div></div></div></div>`;}).join('')}`;}
+
+// REPORT
+function rReport(d){
+  return`
+<div style="font-size:15px;font-weight:800;margin-bottom:12px">📊 ሪፖርት</div>
+<div class="card">
+  <div class="st">ጠቅላላ ሂሳብ</div>
+  ${[['ዕቃ ዓይነቶች',S.products.length+' ዓይነት'],['ጠቅላላ ዕቃ',S.products.reduce((s,p)=>s+p.quantity,0)+' ቁ'],['የዕቃ ዋጋ',ETB(d.inv)],['ሽያጮች',S.sales.length+' ጊዜ'],['ጠቅላላ ሽያጭ',ETB(d.rev)],['ትርፍ',ETB(d.prof)]].map(([l,v])=>`<div class="rr"><span>${l}</span><span>${v}</span></div>`).join('')}
+</div>
+<div class="card">
+  <div class="st">📦 በምድብ</div>
+  ${CATS.map(c=>{const ps=S.products.filter(p=>p.category===c.id);const rev=S.sales.filter(s=>ps.find(p=>p.id===s.productId)).reduce((a,s)=>a+s.total,0);return`<div class="rr"><span>${c.icon} ${c.name}</span><span>${ps.length} ዕቃ · <span style="color:#16A34A">${ETB(rev)}</span></span></div>`;}).join('')}
+</div>
+${d.low.length>0?`<div class="card warn"><div class="st" style="color:#EF4444">⚠️ ክምችት ያነሰ</div>${d.low.map(p=>`<div class="wr"><span>${p.name}</span><span class="wv">${p.quantity} ${p.unit}</span></div>`).join('')}</div>`:''}`;}
+
+// PRODUCT MODAL
+function rPMod(){
+  const f=S.pF;
+  return`<div class="mbg" id="pmb">
+  <div class="mod">
+    <div class="mt">${S.editP?'✏️ ዕቃ አስተካክል':'➕ አዲስ ዕቃ'}</div>
+    <div class="lbl">የዕቃ ስም</div><input class="inp pfi" data-k="name" type="text" placeholder="ለምሳሌ: ራውንድ አፕ" value="${f.name||''}"/>
+    <div class="lbl">ምድብ</div>
+    <select class="inp pfi" data-k="category">
+      ${CATS.map(c=>`<option value="${c.id}" ${f.category===c.id?'selected':''}>${c.icon} ${c.name}</option>`).join('')}
+    </select>
+    <div class="lbl">ብዛት</div><input class="inp pfi" data-k="quantity" type="number" placeholder="0" value="${f.quantity||''}"/>
+    <div class="lbl">የግዥ ዋጋ (ብር)</div><input class="inp pfi" data-k="buyPrice" type="number" placeholder="0" value="${f.buyPrice||''}"/>
+    <div class="lbl">የሽያጭ ዋጋ (ብር)</div><input class="inp pfi" data-k="sellPrice" type="number" placeholder="0" value="${f.sellPrice||''}"/>
+    <div class="lbl">መለኪያ</div><input class="inp pfi" data-k="unit" type="text" placeholder="ሊ / ኪ.ግ / ከረጢት" value="${f.unit||''}"/>
+    <div class="ma">
+      <button class="btn g" id="pc" style="flex:1">ሰርዝ</button>
+      <button class="btn p" id="ps2" style="flex:2">💾 አስቀምጥ</button>
+    </div>
+  </div></div>`;}
+
+// SALE MODAL
+function rSMod(){
+  const f=S.sF, pr=S.products.find(p=>p.id===f.productId);
+  const tot=pr&&f.qty?pr.sellPrice*+f.qty:0;
+  return`<div class="mbg" id="smb">
+  <div class="mod">
+    <div class="mt">💰 ሽያጭ ምዝገባ</div>
+    <div class="lbl">ዕቃ ምረጥ</div>
+    <select class="inp" id="sp">
+      <option value="">-- ዕቃ ምረጥ --</option>
+      ${CATS.map(c=>{const ps=S.products.filter(p=>p.category===c.id);return ps.length?`<optgroup label="${c.icon} ${c.name}">${ps.map(p=>`<option value="${p.id}" ${f.productId===p.id?'selected':''}>${p.name} (${p.quantity} ${p.unit}) — ${ETB(p.sellPrice)}</option>`).join('')}</optgroup>`:''}).join('')}
+    </select>
+    <div class="lbl">ብዛት</div><input class="inp" id="sq" type="number" placeholder="0" value="${f.qty||''}"/>
+    <div class="lbl">ቀን</div><input class="inp" id="sd" type="date" value="${f.date}"/>
+    ${tot>0?`<div class="tp">💰 ጠቅላላ: <strong>${ETB(tot)}</strong></div>`:''}
+    <div class="ma">
+      <button class="btn g" id="sc2" style="flex:1">ሰርዝ</button>
+      <button class="btn p" id="ss2" style="flex:2">💾 ምዝገብ</button>
+    </div>
+  </div></div>`;}
+
+// TRASH
+function rTrash(){
+  var tr=S.trash;
+  if(tr.length===0) return '<div style="font-size:15px;font-weight:800;margin-bottom:12px">🗑️ ታሪክ</div><div class="empty" style="margin-top:40px">የተሰረዘ ዕቃ የለም</div>';
+  var html='<div style="font-size:15px;font-weight:800;margin-bottom:8px">🗑️ ታሪክ ('+tr.length+')</div>';
+  html+='<div style="font-size:12px;color:#6B7280;margin-bottom:12px">↩️ = ይመለሳል &nbsp; ❌ = ምሉ ሰርዘ</div>';
+  tr.slice().reverse().forEach(function(p){
+    var cat=getCat(p.category);
+    html+='<div class="pi" style="background:#FFF8F0;border-color:#FED7AA">'
+      +'<div class="pic" style="background:'+cat.bg+'">'+cat.icon+'</div>'
+      +'<div class="pinfo">'
+      +'<div class="pname">'+p.name+'</div>'
+      +'<div class="pcat">'+cat.name+' · '+ETB(p.sellPrice)+'</div>'
+      +'<div class="pqty" style="color:#EA580C">ተሰርዐዋል: '+p.deletedAt+'</div>'
+      +'</div>'
+      +'<div class="pact">'
+      +'<button class="ib" style="background:#DCFCE7;font-size:15px" data-restore="'+p.id+'">↩️</button>'
+      +'<button class="ib dl" data-perm="'+p.id+'">❌</button>'
+      +'</div></div>';
+  });
+  return html;
+}
+
+// CONFIRM
+function rConf(){return`<div class="mbg" id="cb"><div class="cmod">
+  <div class="bi">🗑️</div><h3>"${S.confDel.name}" ይሰርዙ?</h3>
+  <p>ይህ ዕቃ ሙሉ በሙሉ ይሰረዛል።</p>
+  <div class="ca"><button class="btn g" id="cc" style="flex:1">ሰርዝ</button><button class="btn d" id="co" style="flex:1">አዎ</button></div>
+</div></div>`;}
+
+// ── Bind ───────────────────────────────────────────────────────────────────
+function bindLogin(){
+  document.getElementById('li').addEventListener('input',e=>{S.loginVal=e.target.value;S.loginErr='';});
+  document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+  document.getElementById('lb').addEventListener('click',login);
+}
+
+function bindMain(){
+  document.getElementById('ob')?.addEventListener('click',logout);
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>set({tab:b.dataset.tab,selCat:null})));
+
+  // category cards
+  document.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>set({selCat:b.dataset.cat,pSearch:''})));
+  document.getElementById('back-cat')?.addEventListener('click',()=>set({selCat:null,pSearch:''}));
+
+  // inventory
+  document.getElementById('ap-btn')?.addEventListener('click',()=>{
+    const cat=S.selCat||'arem';
+    set({showPForm:true,editP:null,pF:{name:'',category:cat,quantity:'',buyPrice:'',sellPrice:'',unit:'ሊ'}});
+  });
+  document.getElementById('ps')?.addEventListener('input',e=>set({pSearch:e.target.value}));
+  document.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>{
+    const p=S.products.find(x=>x.id===b.dataset.edit);
+    if(p)set({showPForm:true,editP:p,pF:{name:p.name,category:p.category,quantity:p.quantity,buyPrice:p.buyPrice,sellPrice:p.sellPrice,unit:p.unit}});
+  }));
+  document.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{
+    const p=S.products.find(x=>x.id===b.dataset.del);if(p)set({confDel:p});
+  }));
+
+  // product form
+  document.querySelectorAll('.pfi').forEach(i=>i.addEventListener('input',e=>{S.pF[e.target.dataset.k]=e.target.value;}));
+  document.getElementById('pc')?.addEventListener('click',()=>set({showPForm:false}));
+  document.getElementById('ps2')?.addEventListener('click',saveProd);
+  document.getElementById('pmb')?.addEventListener('click',e=>{if(e.target.id==='pmb')set({showPForm:false});});
+
+  // sales
+  document.getElementById('as-btn')?.addEventListener('click',()=>set({showSForm:true,sF:{productId:'',qty:'',date:today()}}));
+  document.getElementById('ss')?.addEventListener('input',e=>set({sSearch:e.target.value}));
+  document.getElementById('sp')?.addEventListener('change',e=>{S.sF.productId=e.target.value;render();});
+  document.getElementById('sq')?.addEventListener('input',e=>{S.sF.qty=e.target.value;render();});
+  document.getElementById('sd')?.addEventListener('input',e=>{S.sF.date=e.target.value;});
+  document.getElementById('sc2')?.addEventListener('click',()=>set({showSForm:false}));
+  document.getElementById('ss2')?.addEventListener('click',saveSale);
+  document.getElementById('smb')?.addEventListener('click',e=>{if(e.target.id==='smb')set({showSForm:false});});
+
+  // confirm
+  document.querySelectorAll('[data-restore]').forEach(b=>b.addEventListener('click',()=>restoreProd(b.dataset.restore)));
+  document.querySelectorAll('[data-perm]').forEach(b=>b.addEventListener('click',()=>permDelete(b.dataset.perm)));
+  document.getElementById('cc')?.addEventListener('click',()=>set({confDel:null}));
+  document.getElementById('co')?.addEventListener('click',()=>delProd(S.confDel.id));
+  document.getElementById('cb')?.addEventListener('click',e=>{if(e.target.id==='cb')set({confDel:null});});
+}
+
+// ── PWA ────────────────────────────────────────────────────────────────────
+if('serviceWorker' in navigator){
+  const sw=`const C='grb-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/'])));self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('/'))));});`;
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
+}
+const mf={name:'ግብርና ሱቅ',short_name:'ግብርና',start_url:'.',display:'standalone',background_color:'#F0FDF4',theme_color:'#16A34A',icons:[{src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌱</text></svg>',sizes:'192x192',type:'image/svg+xml'}]};
+document.getElementById('mp').href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/manifest+json'}));
+
+// ── Init ───────────────────────────────────────────────────────────────────
+const sv=localStorage.getItem('grb_session');
+if(sv){const d=loadData(sv);S.user=sv;S.products=d?d.products:DEMO.products;S.sales=d?d.sales:DEMO.sales;S.trash=d?d.trash||[]:[];}
+render();
+</script>
+</body>
+</html>

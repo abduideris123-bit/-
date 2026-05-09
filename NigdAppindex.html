@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#16A34A"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="ንግድ አፕ"/>
+<title>ንግድ አፕ</title>
+<link rel="manifest" id="manifest-placeholder"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'Noto Sans Ethiopic','Segoe UI',sans-serif;background:#F0FDF4;color:#1C2B1A;min-height:100vh;padding-bottom:80px;}
+  input,select,button{font-family:inherit;}
+  .header{background:linear-gradient(135deg,#16A34A,#15803D);padding:12px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #00000022;}
+  .header-inner{max-width:560px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+  .header h1{font-size:18px;font-weight:800;color:#fff;}
+  .header .sub{font-size:11px;color:#BBF7D0;margin-top:1px;}
+  .logout-btn{background:#ffffff22;border:none;color:#fff;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;}
+  .main{max-width:560px;margin:0 auto;padding:16px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .card{background:#fff;border-radius:16px;padding:16px;border:1px solid #BBF7D0;box-shadow:0 2px 8px #00000008;}
+  .card.warn{background:#FEF2F2;border-color:#EF444433;}
+  .card.gold{background:#FEF9C3;border-color:#CA8A0433;}
+  .card.green{background:#DCFCE7;border-color:#16A34A33;}
+  .stat-icon{font-size:22px;margin-bottom:6px;}
+  .stat-val{font-size:18px;font-weight:800;}
+  .stat-val.green{color:#16A34A;}
+  .stat-val.gold{color:#CA8A04;}
+  .stat-val.accent{color:#15803D;}
+  .stat-label{font-size:12px;color:#6B7280;margin-top:2px;}
+  .section-title{font-size:14px;font-weight:700;color:#15803D;margin-bottom:12px;}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #BBF7D0;font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .row-name{font-weight:600;}
+  .row-sub{font-size:11px;color:#6B7280;margin-top:2px;}
+  .row-val{font-size:15px;font-weight:800;color:#16A34A;}
+  .warn-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid #EF444411;}
+  .warn-val{font-weight:700;color:#EF4444;}
+  .input{width:100%;border:1.5px solid #BBF7D0;border-radius:10px;padding:10px 12px;font-size:14px;color:#1C2B1A;outline:none;background:#fff;margin-bottom:10px;}
+  .input:focus{border-color:#16A34A;}
+  .label{font-size:12px;font-weight:600;color:#6B7280;margin-bottom:4px;}
+  .btn{padding:10px 18px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s;}
+  .btn.primary{background:#16A34A;color:#fff;}
+  .btn.primary:active{background:#15803D;}
+  .btn.danger{background:#EF4444;color:#fff;}
+  .btn.ghost{background:#F3F4F6;color:#374151;}
+  .btn.full{width:100%;padding:14px;font-size:15px;}
+  .flex-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .product-item{background:#fff;border-radius:16px;padding:14px;border:1px solid #BBF7D0;display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .product-icon{width:44px;height:44px;border-radius:12px;background:#DCFCE7;border:1px solid #BBF7D0;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+  .product-icon.low{background:#FEF2F2;border-color:#EF4444;}
+  .product-info{flex:1;}
+  .product-name{font-weight:700;font-size:15px;}
+  .product-cat{font-size:12px;color:#6B7280;margin-top:2px;}
+  .product-qty{font-size:12px;margin-top:3px;}
+  .product-qty .qty{font-weight:700;color:#16A34A;}
+  .product-qty .qty.low{color:#EF4444;}
+  .product-actions{display:flex;flex-direction:column;gap:6px;}
+  .icon-btn{border:none;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:14px;}
+  .icon-btn.edit{background:#F3F4F6;}
+  .icon-btn.del{background:#FEF2F2;}
+  .sale-item{background:#fff;border-radius:16px;padding:14px;border:1px solid #BBF7D0;margin-bottom:10px;}
+  .sale-head{display:flex;justify-content:space-between;align-items:flex-start;}
+  .sale-name{font-weight:700;font-size:15px;}
+  .sale-meta{font-size:12px;color:#6B7280;margin-top:3px;}
+  .sale-total{font-size:16px;font-weight:800;color:#16A34A;}
+  .sale-profit{font-size:11px;color:#15803D;}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #BBF7D0;padding:6px 16px 10px;box-shadow:0 -4px 20px #00000010;}
+  .bottom-nav-inner{max-width:560px;margin:0 auto;display:flex;gap:6px;}
+  .nav-btn{flex:1;padding:10px 4px;border:none;border-radius:12px;background:transparent;color:#6B7280;font-size:12px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.2s;}
+  .nav-btn.active{background:#16A34A;color:#fff;}
+  .nav-icon{font-size:20px;}
+  .modal-bg{position:fixed;inset:0;background:#00000066;z-index:200;display:flex;align-items:flex-end;justify-content:center;}
+  .modal{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:560px;}
+  .modal-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+  .modal-actions{display:flex;gap:10px;margin-top:6px;}
+  .confirm-modal{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:360px;text-align:center;}
+  .confirm-modal .big-icon{font-size:40px;margin-bottom:12px;}
+  .confirm-modal h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .confirm-modal p{font-size:13px;color:#6B7280;margin-bottom:20px;}
+  .confirm-actions{display:flex;gap:10px;}
+  .total-preview{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:14px;}
+  .total-preview strong{color:#16A34A;}
+  .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1C2B1A;color:#fff;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:600;z-index:300;white-space:nowrap;box-shadow:0 4px 20px #00000044;transition:opacity 0.3s;}
+  .empty{color:#9CA3AF;font-size:14px;text-align:center;padding:30px;}
+  /* LOGIN */
+  .login-bg{min-height:100vh;background:linear-gradient(160deg,#16A34A,#15803D 60%,#052e16);display:flex;align-items:center;justify-content:center;padding:20px;}
+  .login-card{background:#fff;border-radius:24px;padding:36px 28px;width:100%;max-width:380px;box-shadow:0 20px 60px #00000044;}
+  .login-logo{text-align:center;margin-bottom:28px;}
+  .login-logo .emoji{font-size:52px;margin-bottom:8px;}
+  .login-logo h2{font-size:24px;font-weight:800;color:#15803D;}
+  .login-logo p{font-size:13px;color:#6B7280;margin-top:4px;}
+  .info-box{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:12px;padding:10px 14px;font-size:12px;color:#15803D;margin-bottom:18px;line-height:1.6;}
+  .err{color:#EF4444;font-size:12px;margin-top:-6px;margin-bottom:8px;}
+  /* report */
+  .report-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #BBF7D0;font-size:14px;}
+  .report-row span:first-child{color:#6B7280;}
+  .report-row span:last-child{font-weight:700;}
+  select.input{appearance:auto;}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// ── Storage helpers (localStorage for offline) ─────────────────────────────
+const STORE_KEY = u => 'nigdapp_' + u.replace(/\s/g,'_').toLowerCase();
+
+function loadData(user) {
+  try {
+    const raw = localStorage.getItem(STORE_KEY(user));
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
+
+function saveData(user, products, sales) {
+  try {
+    localStorage.setItem(STORE_KEY(user), JSON.stringify({ products, sales }));
+  } catch(e) {}
+}
+
+// ── Default demo data ──────────────────────────────────────────────────────
+const DEMO = {
+  products: [
+    { id:'p1', name:'ሸሚዝ',  category:'ልብስ',    quantity:45, buyPrice:250, sellPrice:400, unit:'ቁ' },
+    { id:'p2', name:'ጫማ',   category:'ጫማ',     quantity:20, buyPrice:500, sellPrice:850, unit:'ቁ' },
+    { id:'p3', name:'ሱሪ',   category:'ልብስ',    quantity:30, buyPrice:350, sellPrice:600, unit:'ቁ' },
+    { id:'p4', name:'ቦርሳ',  category:'መለዋወጫ', quantity:8,  buyPrice:400, sellPrice:750, unit:'ቁ' },
+  ],
+  sales: [
+    { id:'s1', productId:'p1', productName:'ሸሚዝ', qty:3, price:400, total:1200, date:'2026-05-06' },
+    { id:'s2', productId:'p2', productName:'ጫማ',  qty:2, price:850, total:1700, date:'2026-05-07' },
+    { id:'s3', productId:'p3', productName:'ሱሪ',  qty:5, price:600, total:3000, date:'2026-05-08' },
+  ]
+};
+
+// ── Utils ──────────────────────────────────────────────────────────────────
+const ETB = n => Number(n||0).toLocaleString() + ' ብር';
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const today = () => new Date().toISOString().slice(0,10);
+
+// ── State ──────────────────────────────────────────────────────────────────
+let state = {
+  user: null,
+  products: [],
+  sales: [],
+  tab: 'dash',
+  // forms
+  showProductForm: false,
+  editProduct: null,
+  pForm: { name:'', category:'', quantity:'', buyPrice:'', sellPrice:'', unit:'ቁ' },
+  showSaleForm: false,
+  sForm: { productId:'', qty:'', date: today() },
+  confirmDelete: null,
+  productSearch: '',
+  saleSearch: '',
+  loginVal: '',
+  loginErr: '',
+  toast: null,
+  toastTimer: null,
+};
+
+function setState(patch) {
+  Object.assign(state, patch);
+  render();
+}
+
+function showToast(msg) {
+  if (state.toastTimer) clearTimeout(state.toastTimer);
+  const timer = setTimeout(() => setState({ toast: null, toastTimer: null }), 2200);
+  setState({ toast: msg, toastTimer: timer });
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────
+function login() {
+  const v = state.loginVal.trim();
+  if (!v) { setState({ loginErr:'ስልክ ቁጥር ወይም Email አስገቡ' }); return; }
+  const phoneOk = /^[0-9+]{7,15}$/.test(v.replace(/\s/g,''));
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if (!phoneOk && !emailOk) { setState({ loginErr:'ትክክለኛ ስልክ ቁጥር ወይም Email አስገቡ' }); return; }
+  const saved = loadData(v);
+  const products = saved ? saved.products : DEMO.products;
+  const sales    = saved ? saved.sales    : DEMO.sales;
+  setState({ user:v, products, sales, loginErr:'' });
+}
+
+function logout() {
+  setState({ user:null, products:[], sales:[], tab:'dash', loginVal:'', loginErr:'' });
+}
+
+function saveProduct() {
+  const f = state.pForm;
+  if (!f.name || !f.quantity || !f.sellPrice) { showToast('⚠️ ስም፣ ብዛት፣ ዋጋ ያስፈልጋል'); return; }
+  let products;
+  if (state.editProduct) {
+    products = state.products.map(p => p.id === state.editProduct.id
+      ? { ...p, ...f, quantity:+f.quantity, buyPrice:+f.buyPrice, sellPrice:+f.sellPrice }
+      : p);
+  } else {
+    products = [...state.products, { id:uid(), ...f, quantity:+f.quantity, buyPrice:+f.buyPrice, sellPrice:+f.sellPrice }];
+  }
+  saveData(state.user, products, state.sales);
+  setState({ products, showProductForm:false, editProduct:null });
+  showToast('✅ ዕቃ ተቀምጧል');
+}
+
+function deleteProduct(id) {
+  const products = state.products.filter(p => p.id !== id);
+  saveData(state.user, products, state.sales);
+  setState({ products, confirmDelete:null });
+  showToast('🗑️ ዕቃ ተሰርዟል');
+}
+
+function saveSale() {
+  const f = state.sForm;
+  const prod = state.products.find(p => p.id === f.productId);
+  if (!prod || !f.qty || +f.qty <= 0) { showToast('⚠️ ዕቃ እና ብዛት ምረጡ'); return; }
+  if (+f.qty > prod.quantity) { showToast('⚠️ ያለው ክምችት: ' + prod.quantity + ' ' + prod.unit); return; }
+  const total = +f.qty * prod.sellPrice;
+  const sales = [...state.sales, { id:uid(), productId:prod.id, productName:prod.name, qty:+f.qty, price:prod.sellPrice, total, date:f.date }];
+  const products = state.products.map(p => p.id === prod.id ? { ...p, quantity: p.quantity - +f.qty } : p);
+  saveData(state.user, products, sales);
+  setState({ sales, products, showSaleForm:false, sForm:{ productId:'', qty:'', date:today() } });
+  showToast('✅ ሽያጭ ተመዝግቧል');
+}
+
+// ── Derived ────────────────────────────────────────────────────────────────
+function derived() {
+  const { products, sales } = state;
+  const totalInv  = products.reduce((s,p) => s + p.quantity * p.buyPrice, 0);
+  const totalRev  = sales.reduce((s,x) => s + x.total, 0);
+  const totalProf = sales.reduce((s,x) => {
+    const p = products.find(pr => pr.id === x.productId);
+    return s + (p ? (x.price - p.buyPrice) * x.qty : 0);
+  }, 0);
+  const lowStock  = products.filter(p => p.quantity <= 10);
+  const filtProds = products.filter(p => p.name.includes(state.productSearch) || p.category.includes(state.productSearch));
+  const filtSales = sales.filter(s => s.productName.includes(state.saleSearch) || s.date.includes(state.saleSearch));
+  return { totalInv, totalRev, totalProf, lowStock, filtProds, filtSales };
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById('app');
+  if (!state.user) { app.innerHTML = renderLogin(); bindLogin(); return; }
+  app.innerHTML = renderMain();
+  bindMain();
+}
+
+function renderLogin() {
+  return `
+  <div class="login-bg">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="emoji">📦</div>
+        <h2>ንግድ አፕ</h2>
+        <p>ዕቃ እና ሽያጭ መቆጣጠሪያ</p>
+      </div>
+      <div class="label">ስልክ ቁጥር ወይም Email</div>
+      <input id="login-input" class="input" placeholder="09xxxxxxxx ወይም name@email.com"
+        value="${state.loginVal}" style="font-size:15px;padding:13px 14px;" type="text"/>
+      ${state.loginErr ? `<div class="err">⚠️ ${state.loginErr}</div>` : ''}
+      <div class="info-box">
+        🔒 ውሂብዎ ስልክ ላይ ይቀመጣል። ያለ ኢንተርኔት ይሰራል። ተመሳሳይ ቁጥር/Email ካስገቡ ሁሉ ይመለሳል።
+      </div>
+      <button id="login-btn" class="btn primary full">ግባ / ምዝገባ →</button>
+    </div>
+  </div>`;
+}
+
+function bindLogin() {
+  document.getElementById('login-input').addEventListener('input', e => {
+    state.loginVal = e.target.value;
+    state.loginErr = '';
+  });
+  document.getElementById('login-input').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+  document.getElementById('login-btn').addEventListener('click', login);
+}
+
+function renderMain() {
+  const d = derived();
+  return `
+  ${renderHeader()}
+  <div class="main">
+    ${state.tab==='dash'   ? renderDash(d)   : ''}
+    ${state.tab==='inv'    ? renderInv(d)    : ''}
+    ${state.tab==='sales'  ? renderSales(d)  : ''}
+    ${state.tab==='report' ? renderReport(d) : ''}
+  </div>
+  ${renderBottomNav()}
+  ${state.showProductForm  ? renderProductModal() : ''}
+  ${state.showSaleForm     ? renderSaleModal()    : ''}
+  ${state.confirmDelete    ? renderConfirmModal() : ''}
+  ${state.toast ? `<div class="toast">${state.toast}</div>` : ''}
+  `;
+}
+
+function renderHeader() {
+  return `
+  <div class="header">
+    <div class="header-inner">
+      <div>
+        <h1>📦 ንግድ አፕ</h1>
+        <div class="sub">${state.user}</div>
+      </div>
+      <button class="logout-btn" id="logout-btn">ውጣ</button>
+    </div>
+  </div>`;
+}
+
+function renderDash(d) {
+  return `
+  <div class="grid2">
+    <div class="card green"><div class="stat-icon">📦</div><div class="stat-val green">${state.products.reduce((s,p)=>s+p.quantity,0)} ቁ</div><div class="stat-label">ጠቅላላ ዕቃ</div></div>
+    <div class="card gold"><div class="stat-icon">🏷️</div><div class="stat-val gold">${ETB(d.totalInv)}</div><div class="stat-label">የዕቃ ዋጋ</div></div>
+    <div class="card green"><div class="stat-icon">💰</div><div class="stat-val green">${ETB(d.totalRev)}</div><div class="stat-label">ጠቅላላ ሽያጭ</div></div>
+    <div class="card green"><div class="stat-icon">📈</div><div class="stat-val accent">${ETB(d.totalProf)}</div><div class="stat-label">ትርፍ</div></div>
+  </div>
+  ${d.lowStock.length > 0 ? `
+  <div class="card warn" style="margin-bottom:16px">
+    <div class="section-title" style="color:#EF4444">⚠️ ዝቅተኛ ክምችት (${d.lowStock.length})</div>
+    ${d.lowStock.map(p=>`<div class="warn-row"><span>${p.name}</span><span class="warn-val">${p.quantity} ${p.unit}</span></div>`).join('')}
+  </div>` : ''}
+  <div class="card">
+    <div class="section-title">🕒 የቅርብ ሽያጮች</div>
+    ${state.sales.length===0 ? '<div class="empty">ሽያጭ ገና አልተመዘገበም</div>' :
+      state.sales.slice(-5).reverse().map(s=>`
+      <div class="row">
+        <div><div class="row-name">${s.productName}</div><div class="row-sub">${s.date} · ${s.qty} ቁ</div></div>
+        <div class="row-val">${ETB(s.total)}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderInv(d) {
+  return `
+  <div class="flex-row">
+    <div style="font-size:16px;font-weight:800">📦 ዕቃዎች (${state.products.length})</div>
+    <button class="btn primary" id="add-product-btn">+ አዲስ ዕቃ</button>
+  </div>
+  <input class="input" id="product-search" placeholder="ዕቃ ፈልግ..." value="${state.productSearch}" style="margin-bottom:14px"/>
+  ${d.filtProds.length===0 ? '<div class="empty">ዕቃ አልተገኘም</div>' :
+    d.filtProds.map(p=>`
+    <div class="product-item">
+      <div class="product-icon ${p.quantity<=10?'low':''}">📦</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-cat">${p.category} · ${ETB(p.sellPrice)}</div>
+        <div class="product-qty"><span class="qty ${p.quantity<=10?'low':''}">${p.quantity} ${p.unit}</span> · ግዥ: ${ETB(p.buyPrice)}</div>
+      </div>
+      <div class="product-actions">
+        <button class="icon-btn edit" data-edit="${p.id}">✏️</button>
+        <button class="icon-btn del" data-del="${p.id}">🗑️</button>
+      </div>
+    </div>`).join('')}`;
+}
+
+function renderSales(d) {
+  return `
+  <div class="flex-row">
+    <div style="font-size:16px;font-weight:800">💰 ሽያጮች (${state.sales.length})</div>
+    <button class="btn primary" id="add-sale-btn">+ ሽያጭ</button>
+  </div>
+  <input class="input" id="sale-search" placeholder="ሽያጭ ፈልግ..." value="${state.saleSearch}" style="margin-bottom:14px"/>
+  ${d.filtSales.length===0 ? '<div class="empty">ሽያጭ አልተገኘም</div>' :
+    d.filtSales.slice().reverse().map(s=>{
+      const p = state.products.find(pr=>pr.id===s.productId);
+      const profit = p ? (s.price-p.buyPrice)*s.qty : 0;
+      return `<div class="sale-item">
+        <div class="sale-head">
+          <div><div class="sale-name">${s.productName}</div><div class="sale-meta">${s.date} · ${s.qty} ቁ × ${ETB(s.price)}</div></div>
+          <div style="text-align:right"><div class="sale-total">${ETB(s.total)}</div><div class="sale-profit">ትርፍ: ${ETB(profit)}</div></div>
+        </div>
+      </div>`;
+    }).join('')}`;
+}
+
+function renderReport(d) {
+  return `
+  <div style="font-size:16px;font-weight:800;margin-bottom:14px">📊 ሪፖርት</div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="section-title">ጠቅላላ ሂሳብ</div>
+    ${[
+      ['ዕቃ ዓይነቶች', state.products.length+' ዓይነት'],
+      ['ጠቅላላ ዕቃ ብዛት', state.products.reduce((s,p)=>s+p.quantity,0)+' ቁ'],
+      ['የዕቃ ክምችት ዋጋ', ETB(d.totalInv)],
+      ['ሽያጮች ብዛት', state.sales.length+' ጊዜ'],
+      ['ጠቅላላ ሽያጭ ገቢ', ETB(d.totalRev)],
+      ['ጠቅላላ ትርፍ', ETB(d.totalProf)],
+    ].map(([l,v])=>`<div class="report-row"><span>${l}</span><span>${v}</span></div>`).join('')}
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="section-title">🏆 ምርጥ ሽያጭ</div>
+    ${state.products.map(p=>{
+      const sold = state.sales.filter(s=>s.productId===p.id).reduce((a,s)=>a+s.qty,0);
+      const rev  = state.sales.filter(s=>s.productId===p.id).reduce((a,s)=>a+s.total,0);
+      return `<div class="report-row"><span>${p.name}</span><span>${sold} ቁ · <span style="color:#16A34A;font-weight:700">${ETB(rev)}</span></span></div>`;
+    }).join('')}
+  </div>
+  ${d.lowStock.length>0?`
+  <div class="card warn">
+    <div class="section-title" style="color:#EF4444">⚠️ ክምችት ያነሰ</div>
+    ${d.lowStock.map(p=>`<div class="warn-row"><span>${p.name}</span><span class="warn-val">${p.quantity} ${p.unit}</span></div>`).join('')}
+  </div>`:''}`;
+}
+
+function renderBottomNav() {
+  const tabs = [
+    {key:'dash',  icon:'🏠', label:'ዋና ገጽ'},
+    {key:'inv',   icon:'📦', label:'ዕቃዎች'},
+    {key:'sales', icon:'💰', label:'ሽያጭ'},
+    {key:'report',icon:'📊', label:'ሪፖርት'},
+  ];
+  return `<div class="bottom-nav"><div class="bottom-nav-inner">
+    ${tabs.map(t=>`<button class="nav-btn ${state.tab===t.key?'active':''}" data-tab="${t.key}">
+      <span class="nav-icon">${t.icon}</span><span>${t.label}</span>
+    </button>`).join('')}
+  </div></div>`;
+}
+
+function renderProductModal() {
+  const f = state.pForm;
+  const fields = [
+    {key:'name',      label:'የዕቃ ስም',         type:'text',   ph:'ሸሚዝ'},
+    {key:'category',  label:'ምድብ',             type:'text',   ph:'ልብስ'},
+    {key:'quantity',  label:'ብዛት',             type:'number', ph:'0'},
+    {key:'buyPrice',  label:'የግዥ ዋጋ (ብር)',    type:'number', ph:'0'},
+    {key:'sellPrice', label:'የሽያጭ ዋጋ (ብር)',  type:'number', ph:'0'},
+    {key:'unit',      label:'መለኪያ',            type:'text',   ph:'ቁ / ኪ.ግ'},
+  ];
+  return `<div class="modal-bg" id="product-modal-bg">
+    <div class="modal">
+      <div class="modal-title">${state.editProduct?'✏️ ዕቃ አስተካክል':'➕ አዲስ ዕቃ'}</div>
+      ${fields.map(fi=>`
+        <div class="label">${fi.label}</div>
+        <input class="input pform-input" data-key="${fi.key}" type="${fi.type}" placeholder="${fi.ph}" value="${f[fi.key]||''}"/>
+      `).join('')}
+      <div class="modal-actions">
+        <button class="btn ghost" id="product-cancel" style="flex:1">ሰርዝ</button>
+        <button class="btn primary" id="product-save" style="flex:2">💾 አስቀምጥ</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderSaleModal() {
+  const f = state.sForm;
+  const selProd = state.products.find(p=>p.id===f.productId);
+  const previewTotal = selProd && f.qty ? selProd.sellPrice * +f.qty : 0;
+  return `<div class="modal-bg" id="sale-modal-bg">
+    <div class="modal">
+      <div class="modal-title">💰 ሽያጭ ምዝገባ</div>
+      <div class="label">ዕቃ ምረጥ</div>
+      <select class="input select" id="sale-product-sel">
+        <option value="">-- ዕቃ ምረጥ --</option>
+        ${state.products.map(p=>`<option value="${p.id}" ${f.productId===p.id?'selected':''}>${p.name} (${p.quantity} ${p.unit}) — ${ETB(p.sellPrice)}</option>`).join('')}
+      </select>
+      <div class="label">ብዛት</div>
+      <input class="input" id="sale-qty" type="number" placeholder="0" value="${f.qty||''}"/>
+      <div class="label">ቀን</div>
+      <input class="input" id="sale-date" type="date" value="${f.date}"/>
+      ${previewTotal>0?`<div class="total-preview">💰 ጠቅላላ: <strong>${ETB(previewTotal)}</strong></div>`:''}
+      <div class="modal-actions">
+        <button class="btn ghost" id="sale-cancel" style="flex:1">ሰርዝ</button>
+        <button class="btn primary" id="sale-save" style="flex:2">💾 ምዝገብ</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderConfirmModal() {
+  return `<div class="modal-bg" id="confirm-bg">
+    <div class="confirm-modal">
+      <div class="big-icon">🗑️</div>
+      <h3>"${state.confirmDelete.name}" ይሰርዙ?</h3>
+      <p>ይህ ዕቃ ሙሉ በሙሉ ይሰረዛል።</p>
+      <div class="confirm-actions">
+        <button class="btn ghost" id="confirm-cancel" style="flex:1">ሰርዝ</button>
+        <button class="btn danger" id="confirm-ok" style="flex:1">አዎ፣ ሰርዝ</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function bindMain() {
+  // logout
+  document.getElementById('logout-btn')?.addEventListener('click', logout);
+
+  // nav
+  document.querySelectorAll('[data-tab]').forEach(btn =>
+    btn.addEventListener('click', () => setState({ tab: btn.dataset.tab })));
+
+  // inventory
+  document.getElementById('add-product-btn')?.addEventListener('click', () =>
+    setState({ showProductForm:true, editProduct:null, pForm:{ name:'', category:'', quantity:'', buyPrice:'', sellPrice:'', unit:'ቁ' } }));
+
+  document.getElementById('product-search')?.addEventListener('input', e =>
+    setState({ productSearch: e.target.value }));
+
+  document.querySelectorAll('[data-edit]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const p = state.products.find(x => x.id === btn.dataset.edit);
+      if (p) setState({ showProductForm:true, editProduct:p, pForm:{ name:p.name, category:p.category, quantity:p.quantity, buyPrice:p.buyPrice, sellPrice:p.sellPrice, unit:p.unit } });
+    }));
+
+  document.querySelectorAll('[data-del]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const p = state.products.find(x => x.id === btn.dataset.del);
+      if (p) setState({ confirmDelete: p });
+    }));
+
+  // product modal
+  document.querySelectorAll('.pform-input').forEach(inp =>
+    inp.addEventListener('input', e => { state.pForm[e.target.dataset.key] = e.target.value; }));
+  document.getElementById('product-cancel')?.addEventListener('click', () => setState({ showProductForm:false }));
+  document.getElementById('product-save')?.addEventListener('click', saveProduct);
+  document.getElementById('product-modal-bg')?.addEventListener('click', e => { if(e.target.id==='product-modal-bg') setState({ showProductForm:false }); });
+
+  // sales
+  document.getElementById('add-sale-btn')?.addEventListener('click', () =>
+    setState({ showSaleForm:true, sForm:{ productId:'', qty:'', date:today() } }));
+  document.getElementById('sale-search')?.addEventListener('input', e =>
+    setState({ saleSearch: e.target.value }));
+
+  // sale modal
+  document.getElementById('sale-product-sel')?.addEventListener('change', e => {
+    state.sForm.productId = e.target.value; render();
+  });
+  document.getElementById('sale-qty')?.addEventListener('input', e => {
+    state.sForm.qty = e.target.value; render();
+  });
+  document.getElementById('sale-date')?.addEventListener('input', e => {
+    state.sForm.date = e.target.value;
+  });
+  document.getElementById('sale-cancel')?.addEventListener('click', () => setState({ showSaleForm:false }));
+  document.getElementById('sale-save')?.addEventListener('click', saveSale);
+  document.getElementById('sale-modal-bg')?.addEventListener('click', e => { if(e.target.id==='sale-modal-bg') setState({ showSaleForm:false }); });
+
+  // confirm
+  document.getElementById('confirm-cancel')?.addEventListener('click', () => setState({ confirmDelete:null }));
+  document.getElementById('confirm-ok')?.addEventListener('click', () => deleteProduct(state.confirmDelete.id));
+  document.getElementById('confirm-bg')?.addEventListener('click', e => { if(e.target.id==='confirm-bg') setState({ confirmDelete:null }); });
+}
+
+// ── PWA Service Worker ────────────────────────────────────────────────────
+const SW_CODE = `
+const CACHE = 'nigdapp-v1';
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['/'])));
+  self.skipWaiting();
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match('/'))));
+});
+`;
+
+if ('serviceWorker' in navigator) {
+  const blob = new Blob([SW_CODE], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+// ── Manifest for install prompt ──────────────────────────────────────────
+const manifest = {
+  name: 'ንግድ አፕ',
+  short_name: 'ንግድ',
+  start_url: '.',
+  display: 'standalone',
+  background_color: '#F0FDF4',
+  theme_color: '#16A34A',
+  icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📦</text></svg>', sizes: '192x192', type: 'image/svg+xml' }]
+};
+const mBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+document.getElementById('manifest-placeholder').href = URL.createObjectURL(mBlob);
+
+// ── Init ──────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>

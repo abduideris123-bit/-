@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#16A34A"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="ግብርና ሱቅ"/>
+<title>🌱 ግብርና ሱቅ</title>
+<link rel="manifest" id="mp"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans Ethiopic','Segoe UI',sans-serif;background:#F0FDF4;color:#1C2B1A;min-height:100vh;padding-bottom:84px;}
+input,select,button{font-family:inherit;}
+.hdr{background:linear-gradient(135deg,#16A34A,#15803D);padding:12px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #00000022;}
+.hdr-in{max-width:560px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.hdr h1{font-size:18px;font-weight:800;color:#fff;}
+.hdr .sub{font-size:11px;color:#BBF7D0;margin-top:1px;}
+.out-btn{background:#ffffff22;border:none;color:#fff;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;}
+.main{max-width:560px;margin:0 auto;padding:14px;}
+.card{background:#fff;border-radius:16px;padding:16px;border:1px solid #BBF7D0;box-shadow:0 2px 8px #00000008;margin-bottom:12px;}
+.card.warn{background:#FEF2F2;border-color:#EF444433;}
+.card.gold{background:#FEF9C3;border-color:#CA8A0433;}
+.card.grn{background:#DCFCE7;border-color:#16A34A33;}
+.card.exp{background:#FFF1F2;border-color:#FB7185;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sv{font-size:17px;font-weight:800;}
+.sv.g{color:#16A34A;}.sv.go{color:#CA8A04;}.sv.a{color:#15803D;}.sv.r{color:#EF4444;}
+.sl{font-size:11px;color:#6B7280;margin-top:2px;}
+.st{font-size:13px;font-weight:700;color:#15803D;margin-bottom:10px;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #BBF7D0;font-size:13px;}
+.row:last-child{border-bottom:none;}
+.rn{font-weight:600;}.rs{font-size:11px;color:#6B7280;margin-top:1px;}.rv{font-size:14px;font-weight:800;color:#16A34A;}
+.wr{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid #EF444411;}
+.wv{font-weight:700;color:#EF4444;}
+.inp{width:100%;border:1.5px solid #BBF7D0;border-radius:10px;padding:9px 12px;font-size:14px;color:#1C2B1A;outline:none;background:#fff;margin-bottom:9px;}
+.inp:focus{border-color:#16A34A;}
+.lbl{font-size:11px;font-weight:600;color:#6B7280;margin-bottom:3px;}
+.btn{padding:9px 16px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;}
+.btn.p{background:#16A34A;color:#fff;}
+.btn.d{background:#EF4444;color:#fff;}
+.btn.g{background:#F3F4F6;color:#374151;}
+.btn.full{width:100%;padding:13px;font-size:15px;}
+.fr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.cat-card{background:#fff;border-radius:16px;padding:16px 12px;border:2px solid #BBF7D0;cursor:pointer;text-align:center;transition:all 0.15s;box-shadow:0 2px 8px #00000008;}
+.cat-card:active{transform:scale(0.96);}
+.cat-icon{font-size:30px;margin-bottom:5px;}
+.cat-name{font-size:13px;font-weight:700;}
+.cat-count{font-size:11px;color:#6B7280;margin-top:2px;}
+.back-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:#16A34A;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;padding:0;}
+.pi{background:#fff;border-radius:14px;padding:12px;border:1px solid #BBF7D0;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.pi.exp-soon{border-color:#FB7185;background:#FFF1F2;}
+.pi.expired{border-color:#EF4444;background:#FEE2E2;}
+.pic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pinfo{flex:1;min-width:0;}
+.pname{font-weight:700;font-size:14px;}
+.pcat{font-size:11px;color:#6B7280;margin-top:1px;}
+.pqty{font-size:11px;margin-top:2px;}
+.pqty .q{font-weight:700;color:#16A34A;}.pqty .q.low{color:#EF4444;}
+.pexp{font-size:10px;margin-top:2px;font-weight:600;}
+.pexp.ok{color:#16A34A;}.pexp.soon{color:#F59E0B;}.pexp.expired{color:#EF4444;}
+.pact{display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.ib{border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:13px;}
+.ib.e{background:#F3F4F6;}.ib.dl{background:#FEF2F2;}
+.si{background:#fff;border-radius:14px;padding:12px;border:1px solid #BBF7D0;margin-bottom:8px;}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;}
+.sn{font-weight:700;font-size:14px;}.sm{font-size:11px;color:#6B7280;margin-top:2px;}
+.st2{font-size:15px;font-weight:800;color:#16A34A;}.sp{font-size:10px;color:#15803D;}
+.sact{display:flex;gap:5px;margin-top:8px;border-top:1px solid #BBF7D0;padding-top:8px;}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #BBF7D0;padding:5px 12px 10px;box-shadow:0 -4px 20px #00000010;}
+.bnav-in{max-width:560px;margin:0 auto;display:flex;gap:4px;}
+.nb{flex:1;padding:7px 2px;border:none;border-radius:11px;background:transparent;color:#6B7280;font-size:10px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.nb.active{background:#16A34A;color:#fff;}
+.ni{font-size:18px;}
+.mbg{position:fixed;inset:0;background:#00000066;z-index:200;display:flex;align-items:flex-end;justify-content:center;}
+.mod{background:#fff;border-radius:20px 20px 0 0;padding:22px 18px 30px;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;}
+.mt{font-size:16px;font-weight:800;margin-bottom:16px;}
+.ma{display:flex;gap:10px;margin-top:8px;}
+.cmod-bg{position:fixed;inset:0;background:#00000066;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+.cmod{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:340px;text-align:center;}
+.cmod .bi{font-size:38px;margin-bottom:10px;}
+.cmod h3{font-size:15px;font-weight:700;margin-bottom:7px;}
+.cmod p{font-size:12px;color:#6B7280;margin-bottom:18px;}
+.ca{display:flex;gap:10px;}
+.tp{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:10px;padding:9px 13px;margin-bottom:12px;font-size:13px;}
+.tp strong{color:#16A34A;}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#1C2B1A;color:#fff;border-radius:12px;padding:9px 18px;font-size:13px;font-weight:600;z-index:300;white-space:nowrap;box-shadow:0 4px 20px #00000044;}
+.empty{color:#9CA3AF;font-size:13px;text-align:center;padding:28px;}
+/* exp alert banner */
+.exp-banner{background:#FFF1F2;border:1.5px solid #FB7185;border-radius:14px;padding:12px 14px;margin-bottom:12px;}
+.exp-banner .etitle{font-size:13px;font-weight:700;color:#EF4444;margin-bottom:8px;}
+.exp-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #FEE2E2;}
+.exp-row:last-child{border-bottom:none;}
+.lbg{min-height:100vh;background:linear-gradient(160deg,#16A34A,#15803D 60%,#052e16);display:flex;align-items:center;justify-content:center;padding:20px;}
+.lcard{background:#fff;border-radius:22px;padding:34px 26px;width:100%;max-width:360px;box-shadow:0 20px 60px #00000044;}
+.llogo{text-align:center;margin-bottom:24px;}
+.llogo .em{font-size:50px;margin-bottom:6px;}
+.llogo h2{font-size:22px;font-weight:800;color:#15803D;}
+.llogo p{font-size:12px;color:#6B7280;margin-top:3px;}
+.ibox{background:#DCFCE7;border:1px solid #BBF7D0;border-radius:11px;padding:9px 13px;font-size:12px;color:#15803D;margin-bottom:16px;line-height:1.6;}
+.err{color:#EF4444;font-size:12px;margin-top:-6px;margin-bottom:7px;}
+.rr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #BBF7D0;font-size:13px;}
+.rr span:first-child{color:#6B7280;}.rr span:last-child{font-weight:700;}
+select.inp{appearance:auto;}
+.badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;}
+.badge.exp{background:#FEE2E2;color:#EF4444;}
+.badge.soon{background:#FEF9C3;color:#CA8A04;}
+.sync-bar{display:flex;align-items:center;gap:6px;font-size:11px;color:#BBF7D0;margin-top:2px;}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;}
+.sync-dot.syncing{background:#fbbf24;animation:pulse 1s infinite;}
+.sync-dot.error{background:#f87171;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.icon-picker{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.icon-opt{width:38px;height:38px;border-radius:8px;border:1.5px solid #BBF7D0;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.icon-opt.sel{border-color:#16A34A;background:#DCFCE7;}
+.color-picker{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.color-opt{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;}
+.color-opt.sel{border-color:#1C2B1A;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #BBF7D0;font-size:13px;}
+.detail-row:last-child{border-bottom:none;}
+.detail-label{color:#6B7280;font-size:12px;}
+.detail-val{font-weight:700;font-size:13px;}
+.desc-box{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px 12px;font-size:13px;color:#1C2B1A;line-height:1.7;margin-top:4px;}
+/* Product grid cards */
+.prod-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px;}
+.pg-card{background:#fff;border-radius:14px;padding:12px 10px;border:1px solid #BBF7D0;box-shadow:0 2px 8px #00000008;cursor:pointer;position:relative;transition:all 0.15s;}
+.pg-card:active{transform:scale(0.97);}
+.pg-card.exp-soon{border-color:#FB7185;}
+.pg-card.expired{border-color:#EF4444;background:#FEF2F2;}
+.pg-badge{display:inline-block;background:#16A34A;color:#fff;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:700;margin-bottom:6px;}
+.pg-name{font-size:12px;font-weight:700;color:#1C2B1A;margin-bottom:6px;line-height:1.3;min-height:32px;}
+.pg-price{font-size:14px;font-weight:800;color:#16A34A;margin-bottom:4px;}
+.pg-unit{font-size:10px;color:#6B7280;}
+.pg-exp{font-size:9px;font-weight:600;margin-top:4px;}
+.pg-exp.ok{color:#16A34A;}.pg-exp.soon{color:#F59E0B;}.pg-exp.expired{color:#EF4444;}
+.pg-qty{font-size:10px;color:#6B7280;margin-top:2px;}
+.pg-qty.low{color:#EF4444;font-weight:700;}
+.pg-actions{display:flex;gap:4px;margin-top:8px;border-top:1px solid #F0FDF4;padding-top:8px;}
+.pg-btn{flex:1;border:none;border-radius:7px;padding:5px 2px;font-size:11px;font-weight:700;cursor:pointer;}
+.pg-btn.e{background:#F3F4F6;color:#374151;}
+.pg-btn.d{background:#FEF2F2;color:#EF4444;}
+.install-bar{position:fixed;bottom:84px;left:0;right:0;z-index:150;display:flex;justify-content:center;padding:0 16px;}
+/* Cat manage mode */
+.cat-manage-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:9px 14px;}
+.cat-manage-hint{font-size:11px;color:#6B7280;}
+.cat-card.manage-mode{cursor:grab;position:relative;}
+.cat-card.manage-mode:active{cursor:grabbing;opacity:0.7;transform:scale(0.97);}
+.cat-drag-handle{position:absolute;top:6px;left:6px;font-size:16px;color:#9CA3AF;cursor:grab;}
+.cat-del-btn{position:absolute;top:6px;right:6px;background:#FEE2E2;border:none;border-radius:6px;width:24px;height:24px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#EF4444;z-index:2;}
+.cat-card.dragging{opacity:0.4;border:2px dashed #16A34A !important;}
+.cat-card.drag-over{border:2px solid #16A34A !important;transform:scale(1.03);}
+.install-btn{background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:14px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px #16A34A44;display:flex;align-items:center;gap:8px;font-family:inherit;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const DEFAULT_CATS=[
+  {id:'kimikali',name:'ኬሚካል',icon:'🧪',color:'#7C3AED',bg:'#F5F3FF'},
+  {id:'madaberiya',name:'ማዳበሪያ',icon:'🌾',color:'#CA8A04',bg:'#FEF9C3'},
+  {id:'arem',name:'የአረም ማጥፊያ',icon:'🌿',color:'#16A34A',bg:'#DCFCE7'},
+  {id:'til',name:'የትል መድሃኒት',icon:'🐛',color:'#DC2626',bg:'#FEF2F2'},
+  {id:'bereero',name:'የበረሮ/ተባይ',icon:'🪲',color:'#EA580C',bg:'#FFF7ED'},
+  {id:'fungicide',name:'ፈንጊሳይድ',icon:'🍄',color:'#9333EA',bg:'#FAF5FF'},
+  {id:'zer',name:'ዘሮች',icon:'🌱',color:'#059669',bg:'#ECFDF5'},
+  {id:'messa',name:'መሳሪያ/መስኖ',icon:'🚿',color:'#0284C7',bg:'#F0F9FF'},
+  {id:'other',name:'ሌሎች',icon:'📦',color:'#6B7280',bg:'#F9FAFB'},
+];
+// Load custom cats from localStorage or use defaults
+function loadCats(u){
+  try{
+    var raw=localStorage.getItem('grb_cats_'+(u||'default'));
+    return raw?JSON.parse(raw):DEFAULT_CATS;
+  }catch(e){return DEFAULT_CATS;}
+}
+function saveCats(u,cats){
+  try{localStorage.setItem('grb_cats_'+(u||'default'),JSON.stringify(cats));}catch(e){}
+}
+var CATS=DEFAULT_CATS.slice();
+const JSONBIN_KEY='$2a$10$3U57/6sgbv2X6yocg0W9TeLCX.NxhApiDRObUILaN8qD3N4WMZgua';
+const TG_DEFAULT_TOKEN='8814244753:AAH23Bhs5giTUAgAFo9PrAWNhgkD5x-4t-s';
+const TG_DEFAULT_CHAT='1060051687';
+let TG_TOKEN=localStorage.getItem('grb_tg_token')||TG_DEFAULT_TOKEN;
+let TG_CHAT=localStorage.getItem('grb_tg_chat')||TG_DEFAULT_CHAT;
+function tgApi(){ return 'https://api.telegram.org/bot'+TG_TOKEN; }
+function saveTgConfig(token,chat){
+  TG_TOKEN=(token||'').trim()||TG_DEFAULT_TOKEN;
+  TG_CHAT=(chat||'').trim()||TG_DEFAULT_CHAT;
+  localStorage.setItem('grb_tg_token',TG_TOKEN);
+  localStorage.setItem('grb_tg_chat',TG_CHAT);
+}
+
+// ── Telegram backup ────────────────────────────────────────────────────
+async function tgSaveBackup(user, data){
+  if(!user) return; // no backup without login
+  try{
+    var json=JSON.stringify(data);
+    var blob=new Blob([json],{type:'application/json'});
+    var fname='grb_backup_'+user.replace(/[^a-z0-9]/gi,'_')+'_'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'.json';
+    var form=new FormData();
+    form.append('chat_id', TG_CHAT);
+    form.append('document', blob, fname);
+    form.append('caption', '🌱 ግብርና ሱቅ backup\n📅 '+new Date().toLocaleString()+'\n👤 '+user);
+    var r=await fetch(tgApi()+'/sendDocument', {method:'POST', body:form});
+    var j=await r.json();
+    return !!j.ok;
+  } catch(e){ console.log('TG save error',e); return false; }
+}
+
+async function tgLoadLatest(){
+  try{
+    // get latest file from bot
+    var resp=await fetch(tgApi()+'/getUpdates?limit=50&offset=-50');
+    var json=await resp.json();
+    if(!json.ok||!json.result) return null;
+    // find latest document message
+    var msgs=json.result.filter(u=>u.message&&u.message.document&&u.message.document.file_name&&u.message.document.file_name.startsWith('grb_backup_'));
+    if(msgs.length===0) return null;
+    // get latest
+    var latest=msgs[msgs.length-1];
+    var fileId=latest.message.document.file_id;
+    // get file path
+    var fr=await fetch(tgApi()+'/getFile?file_id='+fileId);
+    var fj=await fr.json();
+    if(!fj.ok) return null;
+    var filePath=fj.result.file_path;
+    // download file
+    var dr=await fetch('https://api.telegram.org/file/bot'+TG_TOKEN+'/'+filePath);
+    var text=await dr.text();
+    return JSON.parse(text);
+  } catch(e){ console.log('TG load error',e); return null; }
+}
+async function tgTestSend(){
+  showToast('📡 እየሞከረ...');
+  try{
+    var r=await fetch(tgApi()+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:TG_CHAT,text:'✅ ሙከራ መልእክት — 🌱 ግብርና ሱቅ ከ Telegram ጋር በትክክል ተገናኝቷል!'})});
+    var j=await r.json();
+    if(j.ok) showToast('✅ የሙከራ መልእክት ተልኳል!');
+    else showToast('❌ አልተሳካም — Token/Chat ID ያረጋግጡ');
+  }catch(e){ showToast('❌ ግንኙነት አልተሳካም'); }
+}
+function resetAllData(){
+  var ps=[],ss=[],tr=[];
+  saveData(S.user,ps,ss,tr,S.cats);
+  set({products:ps,sales:ss,trash:tr,confDelAll:false});
+  showToast('🗑️ ሁሉም ውሂብ ተሰርዟል');
+}
+const JSONBIN_URL='https://api.jsonbin.io/v3/b';
+const SKEY=u=>u?'grb_'+u.replace(/\s/g,'_').toLowerCase():'grb_default';
+const BINKEY=u=>'grb_binid_'+u.replace(/\s/g,'_').toLowerCase();
+
+// ── Import from local JSON file ─────────────────────────────────────────
+function importFromFile(file){
+  if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.products||!Array.isArray(data.products)){
+        showToast('❌ ፋይሉ ትክክለኛ backup አይደለም');return;
+      }
+      var ps=data.products||[];
+      var ss=data.sales||[];
+      var tr=data.trash||[];
+      var cats=data.cats||[...DEFAULT_CATS];
+      CATS=cats;
+      saveCats(S.user,CATS);
+      saveData(S.user,ps,ss,tr,cats);
+      set({products:ps,sales:ss,trash:tr,cats:cats});
+      showToast('✅ '+ps.length+' ዕቃ · '+ss.length+' ሽያጭ ተጫነ!');
+    }catch(err){
+      showToast('❌ ፋይሉን ማንበብ አልተቻለም');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ── Cloud sync ──────────────────────────────────────────────────────────
+async function cloudSave(user,data){
+  if(!user){set({syncStatus:'ok'});return;} // no cloud without login
+  try{
+    set({syncStatus:'syncing'});
+    var binId=localStorage.getItem(BINKEY(user));
+    var body=JSON.stringify({record:data});
+    var resp,json;
+    if(binId){
+      // update existing bin
+      resp=await fetch(JSONBIN_URL+'/'+binId,{
+        method:'PUT',
+        headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+        body:body
+      });
+    } else {
+      // create new bin
+      resp=await fetch(JSONBIN_URL,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY,'X-Bin-Name':SKEY(user),'X-Bin-Private':'false'},
+        body:body
+      });
+      json=await resp.json();
+      if(json.metadata&&json.metadata.id){
+        localStorage.setItem(BINKEY(user),json.metadata.id);
+      }
+    }
+    set({syncStatus:'ok'});
+  } catch(e){
+    set({syncStatus:'error'});
+  }
+}
+
+async function cloudLoad(user){
+  try{
+    set({syncStatus:'syncing'});
+    var binId=localStorage.getItem(BINKEY(user));
+    if(!binId){
+      // search by name
+      var resp=await fetch('https://api.jsonbin.io/v3/b?meta=false',{
+        headers:{'X-Master-Key':JSONBIN_KEY}
+      });
+      // can't search by name on free tier — return null
+      set({syncStatus:'ok'});
+      return null;
+    }
+    var resp=await fetch(JSONBIN_URL+'/'+binId+'/latest',{
+      headers:{'X-Master-Key':JSONBIN_KEY}
+    });
+    var json=await resp.json();
+    set({syncStatus:'ok'});
+    return json.record||null;
+  } catch(e){
+    set({syncStatus:'error'});
+    return null;
+  }
+}
+function loadData(u){try{const r=localStorage.getItem(SKEY(u));return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveData(u,p,s,t,cats){try{var key=u?SKEY(u):'grb_default';localStorage.setItem(key,JSON.stringify({products:p,sales:s,trash:t||[],cats:cats||DEFAULT_CATS}));}catch(e){}}
+function compressImage(file,maxW,maxH,quality,cb){
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var img=new Image();
+    img.onload=function(){
+      var w=img.width,h=img.height;
+      if(w>maxW||h>maxH){
+        var ratio=Math.min(maxW/w,maxH/h);
+        w=Math.round(w*ratio);h=Math.round(h*ratio);
+      }
+      var canvas=document.createElement('canvas');
+      canvas.width=w;canvas.height=h;
+      var ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,w,h);
+      cb(canvas.toDataURL('image/jpeg',quality));
+    };
+    img.onerror=function(){showToast('⚠️ ፎቶ መጫን አልተቻለም');};
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+const DEMO={
+  products:[
+    {id:'p1',name:'ራውንድ አፕ',category:'arem',quantity:50,buyPrice:380,sellPrice:550,unit:'ሊ',expDate:'2027-03-01',desc:'ከመጠቀምዎ በፊት መመሪያውን ያንብቡ። ከምግብ ምርቶች ርቆ ይቀመጥ። ልጆች እጅ እንዳይደርስ።'},
+    {id:'p2',name:'ግራሞክሶን',category:'arem',quantity:30,buyPrice:420,sellPrice:600,unit:'ሊ',expDate:'2026-08-15'},
+    {id:'p3',name:'ኮንፊዶር',category:'kimikali',quantity:40,buyPrice:250,sellPrice:380,unit:'ሊ',expDate:'2026-06-10'},
+    {id:'p4',name:'ዳይሜቶኤት',category:'til',quantity:25,buyPrice:300,sellPrice:450,unit:'ሊ',expDate:'2026-12-01'},
+    {id:'p5',name:'ሳይፐርሜትሪን',category:'bereero',quantity:35,buyPrice:200,sellPrice:320,unit:'ሊ',expDate:'2027-01-20'},
+    {id:'p6',name:'ዩሪያ ማዳበሪያ',category:'madaberiya',quantity:120,buyPrice:1800,sellPrice:2200,unit:'ከረጢት',expDate:''},
+    {id:'p7',name:'DAP ማዳበሪያ',category:'madaberiya',quantity:80,buyPrice:2200,sellPrice:2700,unit:'ከረጢት',expDate:''},
+    {id:'p8',name:'የበቆሎ ዘር BH-540',category:'zer',quantity:60,buyPrice:450,sellPrice:650,unit:'ኪ.ግ',expDate:'2026-09-01'},
+    {id:'p9',name:'የስንዴ ዘር',category:'zer',quantity:90,buyPrice:280,sellPrice:420,unit:'ኪ.ግ',expDate:'2026-07-01'},
+    {id:'p10',name:'ድሪፕ ቱቦ',category:'messa',quantity:10,buyPrice:3500,sellPrice:5000,unit:'ጥቅል',expDate:''},
+  ],
+  sales:[
+    {id:'s1',productId:'p6',productName:'ዩሪያ ማዳበሪያ',qty:5,price:2200,total:11000,date:'2026-05-06'},
+    {id:'s2',productId:'p1',productName:'ራውንድ አፕ',qty:8,price:550,total:4400,date:'2026-05-07'},
+    {id:'s3',productId:'p8',productName:'የበቆሎ ዘር BH-540',qty:10,price:650,total:6500,date:'2026-05-08'},
+  ]
+};
+function escHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+const ETB=n=>Number(n||0).toLocaleString()+' ብር';
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today=()=>new Date().toISOString().slice(0,10);
+function getCats(){return (S&&S.cats&&S.cats.length)?S.cats:CATS;}
+function saveExpenses(user,exps){if(user)localStorage.setItem('grb_exp_'+user,JSON.stringify(exps));}
+function loadExpenses(user){try{var r=localStorage.getItem('grb_exp_'+user);return r?JSON.parse(r):[];}catch(e){return [];}}
+function saveAIHistory(user,h){if(user)try{localStorage.setItem('grb_ai_'+user,JSON.stringify(h.slice(0,15)));}catch(e){}}
+function loadAIHistory(user){try{var r=localStorage.getItem('grb_ai_'+user);return r?JSON.parse(r):[];}catch(e){return [];}}
+
+// Built-in offline plant-problem knowledge base — no internet or API key needed
+var PLANT_KB=[
+  {kw:['ቢጫ','ቢጫ ቅጠል','ወደ ቢጫ','ቅጠሉ ወደ ቢጫ'],name:'የንጥረ ነገር (ናይትሮጅን) እጥረት ወይም ውሃ አለመመጣጠን',cats:['madaberiya'],
+    tip:'ቅጠል ወደ ቢጫ ሲቀየር ብዙ ጊዜ ምክንያቱ የናይትሮጅን/ንጥረ ነገር እጥረት ወይም ስህተት የውሃ መጠን (ብዙ ወይም ትንሽ) ነው። ሚዛናዊ ማዳበሪያ ይጠቀሙ፣ የውሃ መርሃ ግብርን ያስተካክሉ፣ የስር አካባቢውን የውሃ ፍሳሽ ያረጋግጡ።'},
+  {kw:['ዱቄት','ነጭ ሽፋን','ነጭ ዱቄት','ነጭ ሱፍ'],name:'የዱቄት አረምጃ በሽታ (Powdery Mildew)',cats:['fungicide'],
+    tip:'ነጭ ዱቄት መሰል ሽፋን በቅጠል ላይ ከታየ ፈንገስ ነው። ፈንጊሳይድ (Fungicide) ይጠቀሙ፣ ተክሉ ላይ ያለውን የአየር ዝውውር ያሻሽሉ፣ ቅጠሎቹ እርጥብ ሆነው እንዳያድሩ ያድርጉ።'},
+  {kw:['ትል','ትሎች','ዎርም','አባ ጨጓሬ'],name:'የትል/አባ ጨጓሬ ተባይ',cats:['til','bereero'],
+    tip:'ትል ወይም አባ ጨጓሬ ቅጠል/ፍሬ ላይ ጉዳት እያደረሰ ከሆነ የትል መድሃኒት ወይም ተባይ ማጥፊያ ይጠቀሙ፤ ጠዋት ወይም ማታ ላይ ይረጩ፣ የተጎዱ ቅጠሎችን ቆርጠው ያውጡ።'},
+  {kw:['ተባይ','ነፍሳት','ቅማል','አፊድ','ትንንሽ ነፍሳት'],name:'ነፍሳት/ቅማል ተባይ ጥቃት',cats:['bereero'],
+    tip:'ትናንሽ ነፍሳት/ቅማል (aphid) ካስተዋሉ የተባይ ማጥፊያ (ኢንሴክቲሳይድ) ይጠቀሙ፤ ቅጠል ስር በተለይ ይረጩ፣ በተደጋጋሚ ይከታተሉ።'},
+  {kw:['ነጠብጣብ','ቡናማ ነጠብጣብ','ጥቁር ነጠብጣብ','ቀይ ነጠብጣብ'],name:'የቅጠል ነጠብጣብ በሽታ (Leaf Spot)',cats:['fungicide'],
+    tip:'ቡናማ/ጥቁር ነጠብጣቦች በቅጠል ላይ ፈንገስ ወይም ባክቴሪያ ሊሆኑ ይችላሉ። ፈንጊሳይድ ይጠቀሙ፣ የተጎዱ ቅጠሎችን አስወግደው ያቃጥሉ፣ ውሃ በቅጠል ላይ ከመርጨት ይቆጠቡ።'},
+  {kw:['ስር መበስበስ','ስር','ሥር መበስበስ','ሥር'],name:'የስር መበስበስ (Root Rot)',cats:['fungicide'],
+    tip:'ስር መበስበስ ብዙ ጊዜ ከመጠን ያለፈ ውሃ ውጤት ነው። የውሃ መጠንን ይቀንሱ፣ ፍሳሽ ያለው አፈር ይጠቀሙ፣ ፈንጊሳይድ ወደ አፈር ውስጥ ማከል ይረዳል።'},
+  {kw:['አረም','አረም በዝቶ'],name:'የአረም ችግር',cats:['arem'],
+    tip:'አረም ሰብልን እያጣበበ ከሆነ ተስማሚ የአረም ማጥፊያ (ኸርቢሳይድ) ይጠቀሙ፤ የመድሃኒቱን መጠን በጥንቃቄ ይከተሉ።'},
+  {kw:['ደረቀ','ጠውልጓል','መድረቅ','ውሃ ጥም'],name:'የውሃ እጥረት ወይም ጭንቀት',cats:['madaberiya','messa'],
+    tip:'ተክሉ ከደረቀ/ከጠወለገ በቅድሚያ የውሃ አቅርቦትን ይመልከቱ፣ የመስኖ ስርዓቱን ያረጋግጡ፣ ከዚያ ማዳበሪያ ይጨምሩ።'},
+  {kw:['መጠምዘዝ','ተጣመመ','ተጠማዘዘ'],name:'የቫይረስ ወይም የአፊድ ጉዳት (Leaf Curl)',cats:['bereero'],
+    tip:'ቅጠል መጠምዘዝ ብዙ ጊዜ ከአፊድ/ተባይ ጋር የተያያዘ ነው። ተባይ ማጥፊያ ይጠቀሙ፤ ከቫይረስ ከሆነ የተጎዳውን ተክል ማራቅ ይመከራል።'},
+  {kw:['ፍሬ መበስበስ','ፍራፍሬ መበስበስ','ፍሬ ላይ መበስበስ'],name:'የፍሬ መበስበስ',cats:['fungicide'],
+    tip:'የፍሬ መበስበስ ብዙ ጊዜ ፈንገስ ውጤት ነው። ፈንጊሳይድ ይጠቀሙ፣ የበሰበሱ ፍሬዎችን ወዲያውኑ ያስወግዱ፣ በእጽዋቱ ዙሪያ ያለውን እርጥበት ይቀንሱ።'},
+  {kw:['አላደገም','መቀንጨር','እድገት ደካማ','አልቆመም'],name:'የእድገት መቀንጨር',cats:['madaberiya'],
+    tip:'ደካማ እድገት ብዙ ጊዜ ከንጥረ ነገር እጥረት ወይም ከአፈር ጥራት ጋር የተያያዘ ነው። ተመጣጣኝ ማዳበሪያ ይጠቀሙ እና የአፈር ፒኤች ያረጋግጡ።'}
+];
+function matchPlantProblem(query){
+  var q=(query||'').toLowerCase();
+  var scored=PLANT_KB.map(function(e){
+    var score=e.kw.reduce(function(s,k){return s+(q.indexOf(k.toLowerCase())>-1?1:0);},0);
+    return {entry:e,score:score};
+  }).filter(function(x){return x.score>0;}).sort(function(a,b){return b.score-a.score;});
+  return scored.slice(0,2).map(function(x){return x.entry;});
+}
+function askAI(){
+  var q=(S.aiF.query||'').trim();
+  if(!q){showToast('⚠️ እባክዎ ችግሩን ይግለጹ');return;}
+  set({aiError:null,aiResult:null});
+  var matches=matchPlantProblem(q);
+  var text='';
+  if(matches.length===0){
+    text='🔍 የገለጹትን ምልክት በትክክል ማወቅ አልቻልኩም። እባክዎ ትንሽ ተጨማሪ ዝርዝር ይስጡ (ለምሳሌ፡ የትኛው ክፍል ላይ ነው፣ ቀለም ለውጥ አለ ወይ) ወይም ከአካባቢዎ የግብርና ባለሙያ ጋር ያማክሩ።\n\nበአሁኑ ጊዜ ያለዎት ክምችት፦\n'+
+      (S.products||[]).filter(function(p){return p.quantity>0;}).slice(0,10).map(function(p){return '• '+p.name;}).join('\n');
+  } else {
+    matches.forEach(function(m,i){
+      text+=(i===0?'🌿 ':'\n\n🌿 ')+'ሊሆን የሚችል ችግር፦ '+m.name+'\n'+m.tip+'\n';
+      var avail=(S.products||[]).filter(function(p){return p.quantity>0 && m.cats.indexOf(p.category)>-1;});
+      if(avail.length>0){
+        text+='\n✅ ከክምችትዎ ውስጥ ተስማሚ የሆኑ ዕቃዎች፦\n'+avail.map(function(p){return '• '+p.name+' ('+p.quantity+' '+(p.unit||'')+' ይገኛል)';}).join('\n');
+      } else {
+        var catNames=m.cats.map(function(cid){return (getCats().find(function(c){return c.id===cid;})||{}).name||cid;}).join(' ወይም ');
+        text+='\n⚠️ ከክምችትዎ ውስጥ ተስማሚ ዕቃ አልተገኘም። እባክዎ የ"'+catNames+'" አይነት ዕቃ ያምጡ።';
+      }
+    });
+  }
+  var hist=[{id:uid(),query:q,result:text,date:today()}].concat(S.aiHistory||[]).slice(0,15);
+  saveAIHistory(S.user,hist);
+  set({aiResult:text,aiHistory:hist});
+}
+function speakAIResult(){
+  if(!('speechSynthesis' in window)){showToast('⚠️ ይህ መሳሪያ ድምጽ ማንበብን አይደግፍም');return;}
+  if(S.aiSpeaking){
+    window.speechSynthesis.cancel();
+    set({aiSpeaking:false});
+    return;
+  }
+  if(!S.aiResult) return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(S.aiResult);
+  u.lang='am-ET';
+  u.rate=0.95;
+  var voices=window.speechSynthesis.getVoices();
+  var amVoice=voices.find(function(v){return v.lang&&v.lang.toLowerCase().indexOf('am')===0;});
+  if(amVoice) u.voice=amVoice;
+  u.onend=function(){set({aiSpeaking:false});};
+  u.onerror=function(){set({aiSpeaking:false});};
+  window.speechSynthesis.speak(u);
+  set({aiSpeaking:true});
+}
+const getCat=id=>getCats().find(c=>c.id===id)||getCats()[getCats().length-1];
+
+// Exp date helpers
+function expStatus(expDate){
+  if(!expDate) return null;
+  const now=new Date(); const exp=new Date(expDate);
+  const diffDays=Math.ceil((exp-now)/(1000*60*60*24));
+  if(diffDays<0) return {status:'expired',label:'ጊዜ አልፎበታል!',days:diffDays};
+  if(diffDays<=30) return {status:'soon',label:diffDays+' ቀን ይቀረዋል',days:diffDays};
+  return {status:'ok',label:diffDays+' ቀን ይቀረዋል',days:diffDays};
+}
+
+let S={
+  user:null,products:[],sales:[],trash:[],cats:[...DEFAULT_CATS],tab:'dash',
+  selCat:null,
+  showPForm:false,editP:null,
+  pF:{name:'',category:'arem',quantity:'',buyPrice:'',sellPrice:'',unit:'ሊ',expDate:'',desc:'',photo:''},
+  showSForm:false,editS:null,
+  sF:{productId:'',qty:'',date:today()},
+  confDel:null,confDelSale:null,
+  pSearch:'',sSearch:'',
+  pSort:'az',
+  lowThreshold:10,
+  showLowAlert:false,
+  detailP:null,
+  showCatForm:false,
+  catManageMode:false,
+  allCatFilter:'',
+  expenses:[],
+  showExpForm:false,
+  expF:{desc:'',amount:'',date:''},
+  catF:{name:'',icon:'🌿',color:'#16A34A'},
+  catForm:{name:'',icon:'📦',color:'#16A34A'},
+  loginVal:'',loginErr:'',
+  syncStatus:'ok',
+  toast:null,toastTimer:null,
+  tgTokenInput:TG_TOKEN,tgChatInput:TG_CHAT,
+  confDelAll:false,
+  showAIForm:false,aiF:{query:'',photo:''},aiLoading:false,aiResult:null,aiError:null,aiHistory:[],aiSpeaking:false,
+  salesListOpen:false,
+};
+
+function set(patch){
+  Object.assign(S,patch);
+  if(patch.user!==undefined){patch.user?localStorage.setItem('grb_session',patch.user):localStorage.removeItem('grb_session');}
+  render();
+}
+function showToast(msg){if(S.toastTimer)clearTimeout(S.toastTimer);const t=setTimeout(()=>set({toast:null,toastTimer:null}),2500);set({toast:msg,toastTimer:t});}
+
+// ── Actions ──────────────────────────────────────────────────────────────
+async function login(){
+  const v=S.loginVal.trim();
+  if(!v){set({loginErr:'ስልክ ቁጥር ወይም Email አስገቡ'});return;}
+  const ok=/^[0-9+]{7,15}$/.test(v.replace(/\s/g,''))||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if(!ok){set({loginErr:'ትክክለኛ ስልክ ቁጥር ወይም Email አስገቡ'});return;}
+  const d=loadData(v);
+  var loadedCats=loadCats(v)||(d&&d.cats?d.cats:[...DEFAULT_CATS]);
+  CATS=loadedCats;
+  var loadedExp=loadExpenses(v);
+  var loadedAI=loadAIHistory(v);
+  set({user:v,products:d?d.products:DEMO.products,sales:d?d.sales:DEMO.sales,trash:d?d.trash||[]:[],cats:loadedCats,expenses:loadedExp,aiHistory:loadedAI});
+  checkExpNotifications(d?d.products:DEMO.products);
+}
+function logout(){set({user:null,products:[],sales:[],trash:[],tab:'dash',selCat:null,loginVal:'',loginErr:''});}
+
+function sendNotif(title, body){
+  if(!('Notification' in window)) return;
+  if(Notification.permission==='granted'){
+    new Notification(title,{body:body,icon:''});
+  } else if(Notification.permission!=='denied'){
+    Notification.requestPermission().then(function(perm){
+      if(perm==='granted') new Notification(title,{body:body,icon:''});
+    });
+  }
+}
+
+function checkExpNotifications(prods){
+  var thresh=S.lowThreshold||10;
+  // expiry alerts
+  var expiring=prods.filter(function(p){var s=expStatus(p.expDate);return s&&(s.status==='expired'||s.status==='soon');});
+  expiring.forEach(function(p){
+    var s=expStatus(p.expDate);
+    sendNotif('🌱 ግብርና ሱቅ — '+p.name, s.label);
+  });
+  // low stock alerts
+  var low=prods.filter(function(p){return p.quantity<=thresh;});
+  if(low.length>0){
+    var names=low.slice(0,3).map(function(p){return p.name+'('+p.quantity+')';}).join(', ');
+    if(low.length>3) names+=(' +'+( low.length-3)+' ዕቃ');
+    sendNotif('⚠️ ዝቅተኛ ክምችት — '+low.length+' ዕቃ', names);
+  }
+}
+
+function checkLowStock(){
+  var thresh=S.lowThreshold||10;
+  var low=S.products.filter(function(p){return p.quantity<=thresh;});
+  if(low.length>0){
+    if(Notification.permission==='granted'){
+      var names=low.slice(0,3).map(function(p){return p.name+': '+p.quantity+' '+p.unit;}).join('\n');
+      if(low.length>3) names+='\n+'+(low.length-3)+' ተጨማሪ';
+      sendNotif('⚠️ ዝቅተኛ ክምችት ('+low.length+' ዕቃ)', names);
+    } else {
+      Notification.requestPermission().then(function(perm){
+        if(perm==='granted') checkLowStock();
+      });
+    }
+    set({showLowAlert:true});
+  } else {
+    showToast('✅ ሁሉም ዕቃ ተቀናጅቷል — ዝቅተኛ ክምችት የለም');
+  }
+}
+
+function saveProd(){
+  const f=S.pF;
+  if(!f.name||!f.quantity||!f.sellPrice){showToast('⚠️ ስም፣ ብዛት፣ ዋጋ ያስፈልጋል');return;}
+  let ps;
+  if(S.editP) ps=S.products.map(p=>p.id===S.editP.id?{...p,...f,quantity:+f.quantity,buyPrice:+f.buyPrice,sellPrice:+f.sellPrice,desc:f.desc||''}:p);
+  else ps=[...S.products,{id:uid(),...f,quantity:+f.quantity,buyPrice:+f.buyPrice,sellPrice:+f.sellPrice,desc:f.desc||''}];
+  saveData(S.user,ps,S.sales,S.trash,S.cats);
+  cloudSave(S.user,{products:ps,sales:S.sales,trash:S.trash,cats:S.cats});
+  tgSaveBackup(S.user,{products:ps,sales:S.sales,trash:S.trash,cats:S.cats});
+  set({products:ps,showPForm:false,editP:null});
+  showToast('✅ ዕቃ ተቀምጧል');
+}
+function delProd(id){
+  const p=S.products.find(x=>x.id===id);
+  if(!p) return;
+  const ps=S.products.filter(x=>x.id!==id);
+  const tr=[...S.trash,{...p,deletedAt:today(),type:'product'}];
+  saveData(S.user,ps,S.sales,tr,S.cats);
+  cloudSave(S.user,{products:ps,sales:S.sales,trash:tr,cats:S.cats});
+  tgSaveBackup(S.user,{products:ps,sales:S.sales,trash:tr,cats:S.cats});
+  set({products:ps,trash:tr,confDel:null,detailP:null});
+  showToast('🗑️ ወደ ታሪክ ተወሰደ');
+}
+function restoreProd(id){
+  const p=S.trash.find(x=>x.id===id);
+  if(!p) return;
+  const {deletedAt,type,...prod}=p;
+  const tr=S.trash.filter(x=>x.id!==id);
+  const ps=[...S.products,prod];
+  saveData(S.user,ps,S.sales,tr,S.cats);
+  set({products:ps,trash:tr});
+  showToast('✅ ዕቃ ተመልሷል!');
+}
+function permDel(id){
+  const tr=S.trash.filter(x=>x.id!==id);
+  saveData(S.user,S.products,S.sales,tr,S.cats);
+  set({trash:tr});
+  showToast('🗑️ ሙሉ ተሰርዟል');
+}
+
+// ── Cat CRUD ──────────────────────────────────────────────────────────────
+function addCat(){
+  var f=S.catF&&S.catF.name?S.catF:S.catForm;
+  if(!f.name||!f.name.trim()){showToast('⚠️ ምድብ ስም ያስፈልጋል');return;}
+  var newCat={id:'cat_'+uid(),name:f.name.trim(),icon:f.icon||'📦',color:f.color||'#16A34A',bg:f.color?f.color+'22':'#F0FDF4'};
+  var newCats=[...getCats(),newCat];
+  CATS=newCats;
+  saveCats(S.user,CATS);
+  set({cats:newCats,showCatForm:false,catF:{name:'',icon:'🌿',color:'#16A34A'},catForm:{name:'',icon:'📦',color:'#16A34A'}});
+  showToast('✅ ምድብ ተጨምሯል!');
+}
+function deleteCat(id){
+  // move products to 'other'
+  var ps=S.products.map(function(p){return p.category===id?{...p,category:'other'}:p;});
+  var newCats=getCats().filter(function(ct){return ct.id!==id;});
+  CATS=newCats;
+  saveCats(S.user,CATS);
+  saveData(S.user,ps,S.sales,S.trash,newCats);
+  set({products:ps,cats:newCats});
+  showToast('🗑️ ምድብ ተሰርዟል');
+}
+
+// ── Expense CRUD ─────────────────────────────────────────────────────────
+function addExpense(){
+  var f=S.expF;
+  if(!f.desc||!f.desc.trim()){showToast('⚠️ ወጪ ምን እንደሆነ ያስፈልጋል');return;}
+  if(!f.amount||isNaN(+f.amount)||+f.amount<=0){showToast('⚠️ መጠን ያስፈልጋል');return;}
+  var exps=[...S.expenses,{id:uid(),desc:f.desc.trim(),amount:+f.amount,date:f.date||today()}];
+  saveExpenses(S.user,exps);
+  set({expenses:exps,showExpForm:false,expF:{desc:'',amount:'',date:''}});
+  showToast('✅ ወጪ ተመዘገበ');
+}
+function deleteExpense(id){
+  var exps=S.expenses.filter(function(e){return e.id!==id;});
+  saveExpenses(S.user,exps);
+  set({expenses:exps});
+  showToast('🗑️ ወጪ ተሰርዟል');
+}
+
+// ── Cat reorder ──────────────────────────────────────────────────────────
+function moveCat(idx,dir){
+  var cats=getCats().slice();
+  var newIdx=idx+dir;
+  if(newIdx<0||newIdx>=cats.length) return;
+  var tmp=cats[idx];cats[idx]=cats[newIdx];cats[newIdx]=tmp;
+  CATS=cats;
+  saveCats(S.user,CATS);
+  saveData(S.user,S.products,S.sales,S.trash,cats);
+  set({cats:cats});
+}
+
+// ── Sale CRUD ────────────────────────────────────────────────────────────
+function saveSale(){
+  const f=S.sF;
+  const prod=S.products.find(p=>p.id===f.productId);
+  if(!prod||!f.qty||+f.qty<=0){showToast('⚠️ ዕቃ እና ብዛት ምረጡ');return;}
+  let ss,ps;
+  if(S.editS){
+    // editing existing sale — restore old qty first
+    const old=S.sales.find(s=>s.id===S.editS);
+    const oldProd=S.products.find(p=>p.id===old.productId);
+    // restore old qty
+    ps=S.products.map(p=>{
+      if(p.id===old.productId) return {...p,quantity:p.quantity+old.qty};
+      return p;
+    });
+    // check new qty
+    const newProd=ps.find(p=>p.id===f.productId);
+    if(+f.qty>newProd.quantity){showToast('⚠️ ያለው ክምችት: '+newProd.quantity+' '+newProd.unit);return;}
+    const total=+f.qty*newProd.sellPrice;
+    ss=S.sales.map(s=>s.id===S.editS?{...s,productId:newProd.id,productName:newProd.name,qty:+f.qty,price:newProd.sellPrice,total,date:f.date}:s);
+    ps=ps.map(p=>p.id===f.productId?{...p,quantity:p.quantity-+f.qty}:p);
+  } else {
+    if(+f.qty>prod.quantity){showToast('⚠️ ያለው ክምችት: '+prod.quantity+' '+prod.unit);return;}
+    const total=+f.qty*prod.sellPrice;
+    ss=[...S.sales,{id:uid(),productId:prod.id,productName:prod.name,qty:+f.qty,price:prod.sellPrice,total,date:f.date}];
+    ps=S.products.map(p=>p.id===prod.id?{...p,quantity:p.quantity-+f.qty}:p);
+  }
+  saveData(S.user,ps,ss,S.trash,S.cats);
+  cloudSave(S.user,{products:ps,sales:ss,trash:S.trash,cats:S.cats});
+  tgSaveBackup(S.user,{products:ps,sales:ss,trash:S.trash,cats:S.cats});
+  set({sales:ss,products:ps,showSForm:false,editS:null,sF:{productId:'',qty:'',date:today()}});
+  showToast('✅ ሽያጭ ተቀምጧል');
+}
+function delSale(id){
+  const s=S.sales.find(x=>x.id===id);
+  if(!s) return;
+  // restore qty
+  const ps=S.products.map(p=>p.id===s.productId?{...p,quantity:p.quantity+s.qty}:p);
+  const ss=S.sales.filter(x=>x.id!==id);
+  saveData(S.user,ps,ss,S.trash,S.cats);
+  set({sales:ss,products:ps,confDelSale:null});
+  showToast('🗑️ ሽያጭ ተሰርዟል — ክምችት ተመልሷል');
+}
+
+// ── Derived ──────────────────────────────────────────────────────────────
+function D(){
+  const p=S.products,s=S.sales;
+  const inv=p.reduce((a,x)=>a+x.quantity*x.buyPrice,0);
+  const rev=s.reduce((a,x)=>a+x.total,0);
+  const prof=s.reduce((a,x)=>{const pr=p.find(r=>r.id===x.productId);return a+(pr?(x.price-pr.buyPrice)*x.qty:0);},0);
+  const low=p.filter(x=>x.quantity<=(S.lowThreshold||10));
+  const expAlert=p.filter(x=>{const es=expStatus(x.expDate);return es&&(es.status==='expired'||es.status==='soon');});
+  return{inv,rev,prof,low,expAlert};
+}
+
+// ── Perf: debounce helper (batches rapid input events into one render) ────
+function debounce(fn,ms){
+  var t;
+  return function(){
+    var args=arguments,ctx=this;
+    clearTimeout(t);
+    t=setTimeout(function(){fn.apply(ctx,args);},ms);
+  };
+}
+// ── Perf: preserve focus + caret across full innerHTML re-renders ─────────
+// (every set()/render() rebuilds the whole page as a string; without this,
+// typing in any input causes the cursor to jump to the end after each
+// keystroke, which is what makes the app feel slow while typing)
+function captureFocus(app){
+  var el=document.activeElement;
+  if(!el||!el.id||!app.contains(el)) return null;
+  var info={id:el.id,type:el.type};
+  try{
+    if(typeof el.selectionStart==='number'){info.start=el.selectionStart;info.end=el.selectionEnd;}
+  }catch(e){/* type=number/date/etc. don't support selection — leave start/end unset */}
+  return info;
+}
+function restoreFocus(info){
+  if(!info) return;
+  var el=document.getElementById(info.id);
+  if(!el) return;
+  el.focus();
+  if(typeof info.start==='number'){
+    try{el.setSelectionRange(info.start,info.end);return;}catch(e){}
+  }
+  // number/date inputs: selection isn't directly settable, and a freshly
+  // re-created element defaults the caret to position 0, not the end —
+  // switch to text briefly to push the caret to the end, then switch back
+  if(info.type==='number'||info.type==='date'){
+    try{
+      var len=(el.value||'').length,orig=el.type;
+      el.type='text';
+      el.setSelectionRange(len,len);
+      el.type=orig;
+    }catch(e){}
+  }
+}
+// ── Render ────────────────────────────────────────────────────────────────
+function render(){
+  const app=document.getElementById('app');
+  const focusInfo=captureFocus(app);
+  if(!S.user){app.innerHTML=rLogin();bindLogin();restoreFocus(focusInfo);return;}
+  const d=D();
+  var html=rHdr(d)+
+    '<div class="main">'+
+    (S.tab==='dash'?rDash(d):'')+
+    (S.tab==='inv'?rInv():'')+
+    (S.tab==='sales'?rSales():'')+
+    (S.tab==='report'?rReport(d):'')+
+    (S.tab==='profit'?rProfit():'')+
+    (S.tab==='trash'?rTrash():'')+
+    (S.tab==='settings'?rSettings():'')+
+    '</div>'+
+    rInstallBar()+
+    rBnav()+
+    (S.showPForm?rPMod():'')+
+    (S.showSForm?rSMod():'')+
+    (S.detailP?rDetailMod():'')+
+    (S.showCatForm?rCatMod():'')+
+    (S.showAIForm?rAIMod():'')+
+    (S.confDel?rConfDel():'')+
+    (S.confDelSale?rConfDelSale():'')+
+    (S.confDelAll?rConfDelAll():'')+
+    (S.toast?'<div class="toast">'+S.toast+'</div>':'');
+  app.innerHTML=html;
+  bindMain();
+  restoreFocus(focusInfo);
+}
+
+function rLogin(){
+  return '<div class="lbg"><div class="lcard">'+
+    '<div class="llogo"><div class="em">🌱</div><h2>ግብርና ሱቅ</h2><p>የግብርና ግብአት እና ኬሚካል</p></div>'+
+    '<div class="lbl">ስልክ ቁጥር ወይም Email</div>'+
+    '<input id="li" class="inp" placeholder="09xxxxxxxx ወይም name@email.com" value="'+S.loginVal+'" style="font-size:15px;padding:12px 14px;"/>'+
+    (S.loginErr?'<div class="err">⚠️ '+S.loginErr+'</div>':'')+
+    '<div class="ibox">🔒 ውሂብዎ ስልክ ላይ ይቀመጣል። ያለ ኢንተርኔት ይሰራል።</div>'+
+    '<button id="lb" class="btn p full">ግባ / ምዝገባ →</button>'+
+    '</div></div>';
+}
+
+function rHdr(d){
+  var expCount=d?d.expAlert.length:0;
+  var isOffline=(typeof navigator!=='undefined'&&navigator.onLine===false);
+  var syncIcon=isOffline?'📴':(S.syncStatus==='syncing'?'🔄':S.syncStatus==='error'?'⚠️':'☁️');
+  var syncTxt=isOffline?'ከመስመር ውጭ — በስልክ ይቀመጣል':(S.syncStatus==='syncing'?'እየቀመጠ...':S.syncStatus==='error'?'Cloud error':'Cloud ✅');
+  return '<div class="hdr"><div class="hdr-in">'+
+    '<div><h1>🌱 ግብርና ሱቅ'+(expCount>0?' <span style="background:#EF4444;color:#fff;border-radius:8px;padding:1px 7px;font-size:11px;vertical-align:middle">⚠️'+expCount+'</span>':'')+'</h1>'+
+    '<div class="sync-bar"><div class="sync-dot'+(isOffline?'':(S.syncStatus==='syncing'?' syncing':S.syncStatus==='error'?' error':''))+'"></div><span>'+syncTxt+'</span></div></div>'+
+    '<button class="out-btn" id="ob">ውጣ</button>'+
+    '</div></div>';
+}
+
+function rInstallBar(){
+  return '<div class="install-bar" id="install-bar" style="display:none">'+
+    '<button class="install-btn" id="install-btn">📲 ስልክ ላይ Install አድርግ</button>'+
+    '</div>';
+}
+function rBnav(){
+  var tabs=[{k:'dash',i:'🏠',l:'ዋና'},{k:'inv',i:'🌿',l:'ዕቃ'},{k:'sales',i:'💰',l:'ሽያጭ'},{k:'report',i:'📊',l:'ሪፖርት'},{k:'profit',i:'📈',l:'ትርፍ'},{k:'trash',i:'🗑️',l:'ታሪክ'},{k:'settings',i:'⚙️',l:'ቅንብር'}];
+  return '<div class="bnav"><div class="bnav-in">'+
+    tabs.map(t=>'<button class="nb'+(S.tab===t.k?' active':'')+'" data-tab="'+t.k+'"><span class="ni">'+t.i+'</span><span>'+t.l+'</span></button>').join('')+
+    '</div></div>';
+}
+
+function rDash(d){
+  var html='<button class="btn p full" id="ai-open-btn" style="margin-bottom:12px;background:linear-gradient(135deg,#7C3AED,#5B21B6);display:flex;align-items:center;justify-content:center;gap:8px">🌿 የእፅዋት ሐኪም — ምክር ጠይቅ</button>';
+  html+='<div class="g2">';
+  html+='<div class="card grn"><div style="font-size:20px;margin-bottom:5px">📦</div><div class="sv g">'+S.products.reduce(function(s,p){return s+p.quantity;},0)+' ቁ</div><div class="sl">ጠቅላላ ዕቃ</div></div>';
+  html+='<div class="card gold"><div style="font-size:20px;margin-bottom:5px">🏷️</div><div class="sv go">'+ETB(d.inv)+'</div><div class="sl">የዕቃ ዋጋ</div></div>';
+  html+='<div class="card grn"><div style="font-size:20px;margin-bottom:5px">💰</div><div class="sv g">'+ETB(d.rev)+'</div><div class="sl">ጠቅላላ ሽያጭ</div></div>';
+  html+='<div class="card grn"><div style="font-size:20px;margin-bottom:5px">📈</div><div class="sv a">'+ETB(d.prof)+'</div><div class="sl">ትርፍ</div></div>';
+  html+='</div>';
+  // Exp alert
+  if(d.expAlert.length>0){
+    html+='<div class="exp-banner"><div class="etitle">⚠️ ጊዜ እያለቀ ያሉ ዕቃዎች ('+d.expAlert.length+')</div>';
+    d.expAlert.forEach(function(p){
+      var es=expStatus(p.expDate);
+      html+='<div class="exp-row"><span>'+p.name+'</span><span class="badge '+(es.status==='expired'?'exp':'soon')+'">'+es.label+'</span></div>';
+    });
+    html+='</div>';
+  }
+  // low stock section — always show with threshold control
+  var thresh=S.lowThreshold||10;
+  html+='<div class="card warn" style="border-color:'+(d.low.length>0?'#FCA5A5':'#BBF7D0')+';background:'+(d.low.length>0?'#FFF5F5':'#F0FDF4')+'">';
+  html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+  html+='<div class="st" style="color:'+(d.low.length>0?'#EF4444':'#16A34A')+'">'+(d.low.length>0?'⚠️ ዝቅተኛ ክምችት ('+d.low.length+')':'✅ ክምችት ጥሩ ነው')+'</div>';
+  html+='<button class="btn '+(d.low.length>0?'d':'p')+'" id="check-low-btn" style="font-size:11px;padding:5px 10px">🔔 ማሳወቂያ</button>';
+  html+='</div>';
+  // threshold setter
+  html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:'+(d.low.length>0?'10':'0')+'px;flex-wrap:wrap">';
+  html+='<span style="font-size:11px;color:#6B7280">የማስጠንቀቂያ ቁጥር:</span>';
+  [5,10,20,50].forEach(function(n){
+    html+='<button class="btn '+(thresh===n?'p':'g')+'" data-thresh="'+n+'" style="font-size:11px;padding:4px 10px">'+n+'</button>';
+  });
+  html+='</div>';
+  if(d.low.length>0){
+    d.low.forEach(function(p){
+      var pct=Math.min(100,Math.round((p.quantity/thresh)*100));
+      html+='<div class="wr" style="margin-bottom:6px">';
+      html+='<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
+      html+='<span style="font-size:12px;font-weight:600">'+p.name+'</span>';
+      html+='<span class="wv" style="color:#EF4444">'+p.quantity+' '+p.unit+'</span>';
+      html+='</div>';
+      html+='<div style="background:#FEE2E2;border-radius:4px;height:5px"><div style="background:#EF4444;border-radius:4px;height:5px;width:'+pct+'%"></div></div>';
+      html+='</div>';
+    });
+  }
+  html+='</div>';
+  // manual backup button
+  html+='<button id="manual-backup-btn" style="width:100%;background:linear-gradient(135deg,#0088cc,#0066aa);color:#fff;border:none;border-radius:14px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit">📲 Telegram Backup ላክ</button>';
+  html+='<div class="card"><div class="st">🕒 የቅርብ ሽያጮች</div>';
+  if(S.sales.length===0) html+='<div class="empty">ሽያጭ ገና አልተመዘገበም</div>';
+  else S.sales.slice(-5).reverse().forEach(function(s){
+    html+='<div class="row"><div><div class="rn">'+s.productName+'</div><div class="rs">'+s.date+' · '+s.qty+' ቁ</div></div><div class="rv">'+ETB(s.total)+'</div></div>';
+  });
+  html+='</div>';
+  // ── Import/Export bar ──
+  html+='<div style="margin-top:16px;background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:14px;padding:14px 16px">';
+  html+='<div style="font-weight:800;font-size:13px;color:#15803D;margin-bottom:10px">📂 Backup & Import</div>';
+  html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  html+='<label style="flex:1;min-width:120px;background:#16A34A;color:#fff;border-radius:10px;padding:10px 12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">'+
+    '📥 JSON ፋይል ጫን'+
+    '<input type="file" id="import-file-input" accept=".json,application/json" style="display:none"/>'+
+    '</label>';
+  html+='</div>';
+  html+='<div style="font-size:10px;color:#6B7280;margin-top:8px">💡 Telegram bot ከላከው grb_backup_...json ፋይል ቀጥታ ይጫናሉ</div>';
+  html+='</div>';
+  return html;
+}
+
+function rInv(){
+  if(!S.selCat) return rCatGrid();
+
+  // ── "ሁሉም እቃ" virtual view ──
+  if(S.selCat==='__all__'){
+    var allProds=S.products;
+    var allFiltered=allProds.filter(function(p){
+      var q=S.pSearch.toLowerCase();
+      return !q||p.name.toLowerCase().includes(q)||(getCat(p.category).name||'').includes(q);
+    });
+    // optional: filter by cat
+    var catFilter=S.allCatFilter||'';
+    if(catFilter) allFiltered=allFiltered.filter(function(p){return p.category===catFilter;});
+    var html='<div class="fr">'+
+      '<button class="back-btn" id="back-cat">← ተመለስ</button>'+
+      '<span style="font-size:11px;color:#6B7280;align-self:center">👁️ ማሳያ ብቻ</span>'+
+      '</div>';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;background:linear-gradient(135deg,#DCFCE7,#F0FDF4);border:1.5px solid #16A34A44;border-radius:12px;padding:10px 14px;">';
+    html+='<span style="font-size:26px">🌿</span><div><div style="font-weight:800;font-size:14px;color:#15803D">ሁሉም እቃ</div><div style="font-size:11px;color:#6B7280">'+allProds.length+' ዕቃ</div></div></div>';
+    // search + cat filter bar
+    html+='<input class="inp" id="ps" placeholder="ዕቃ ፈልግ..." value="'+S.pSearch+'" style="margin-bottom:8px"/>';
+    html+='<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px">';
+    html+='<button class="btn '+(catFilter===''?'p':'g')+'" data-allcat="" style="white-space:nowrap;font-size:11px;padding:5px 10px">ሁሉም</button>';
+    getCats().forEach(function(ct){
+      var hasProd=S.products.some(function(p){return p.category===ct.id;});
+      if(!hasProd) return;
+      html+='<button class="btn '+(catFilter===ct.id?'p':'g')+'" data-allcat="'+ct.id+'" style="white-space:nowrap;font-size:11px;padding:5px 10px">'+ct.icon+' '+ct.name+'</button>';
+    });
+    html+='</div>';
+    // sort bar for all view
+    html+='<div style="display:flex;gap:6px;margin-bottom:8px">';
+    var sorts2=[{k:'az',l:'🔤 A-Z'},{k:'za',l:'🔤 Z-A'},{k:'qty',l:'📦 ክምችት'},{k:'price',l:'💰 ዋጋ'}];
+    sorts2.forEach(function(s){html+='<button class="btn '+(S.pSort===s.k?'p':'g')+'" data-psort="'+s.k+'" style="font-size:11px;padding:5px 9px;white-space:nowrap">'+s.l+'</button>';});
+    html+='</div>';
+    var allSorted=allFiltered.slice().sort(function(a,b){
+      if(S.pSort==='az') return a.name.localeCompare(b.name);
+      if(S.pSort==='za') return b.name.localeCompare(a.name);
+      if(S.pSort==='qty') return b.quantity-a.quantity;
+      if(S.pSort==='price') return b.sellPrice-a.sellPrice;
+      return 0;
+    });
+    if(allSorted.length===0){html+='<div class="empty">ዕቃ አልተገኘም</div>';}
+    else{
+      html+='<div class="prod-grid">';
+      allSorted.forEach(function(p){
+        var cat=getCat(p.category);
+        var es=expStatus(p.expDate);
+        var cls='pg-card'+(es&&es.status==='expired'?' expired':es&&es.status==='soon'?' exp-soon':'');
+        html+='<div class="'+cls+'" data-detail="'+p.id+'" style="cursor:pointer">';
+        if(p.photo) html+='<img src="'+p.photo+'" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;margin-bottom:6px"/>';
+        html+='<div class="pg-badge" style="background:'+cat.color+'">'+cat.icon+' '+cat.name+'</div>';
+        html+='<div class="pg-name">'+p.name+'</div>';
+        html+='<div class="pg-price">'+ETB(p.sellPrice)+'</div>';
+        html+='<div class="pg-unit">/ '+p.unit+'</div>';
+        if(es) html+='<div class="pg-exp '+es.status+'">📅 '+es.label+'</div>';
+        else if(p.expDate) html+='<div class="pg-exp ok">📅 '+p.expDate+'</div>';
+        var thr2=S.lowThreshold||10;
+      html+='<div class="pg-qty'+(p.quantity<=thr2?' low':'')+'">ክምችት: '+p.quantity+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+    }
+    return html;
+  }
+
+  var cat=getCat(S.selCat);
+  var catProds=S.products.filter(function(p){return p.category===S.selCat;});
+  var filtered=catProds.filter(function(p){return p.name.includes(S.pSearch);});
+  var html='<div class="fr">'+
+    '<button class="back-btn" id="back-cat">← ተመለስ</button>'+
+    '<button class="btn p" id="ap-btn" style="font-size:12px;padding:8px 12px">+ አዲስ ዕቃ</button>'+
+    '</div>';
+  html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;background:'+cat.bg+';border:1.5px solid '+cat.color+'33;border-radius:12px;padding:10px 14px;">';
+  html+='<span style="font-size:26px">'+cat.icon+'</span><div><div style="font-weight:800;font-size:14px;color:'+cat.color+'">'+cat.name+'</div><div style="font-size:11px;color:#6B7280">'+catProds.length+' ዕቃ</div></div></div>';
+  html+='<input class="inp" id="ps" placeholder="ዕቃ ፈልግ..." value="'+S.pSearch+'" style="margin-bottom:8px"/>';
+  // sort bar
+  html+='<div style="display:flex;gap:6px;margin-bottom:10px">';
+  var sorts=[{k:'az',l:'🔤 A-Z'},{k:'za',l:'🔤 Z-A'},{k:'qty',l:'📦 ክምችት'},{k:'price',l:'💰 ዋጋ'}];
+  sorts.forEach(function(s){html+='<button class="btn '+(S.pSort===s.k?'p':'g')+'" data-psort="'+s.k+'" style="font-size:11px;padding:5px 9px;white-space:nowrap">'+s.l+'</button>';});
+  html+='</div>';
+  // sort filtered
+  var sorted=filtered.slice().sort(function(a,b){
+    if(S.pSort==='az') return a.name.localeCompare(b.name);
+    if(S.pSort==='za') return b.name.localeCompare(a.name);
+    if(S.pSort==='qty') return b.quantity-a.quantity;
+    if(S.pSort==='price') return b.sellPrice-a.sellPrice;
+    return 0;
+  });
+  if(sorted.length===0){html+='<div class="empty">ዕቃ አልተገኘም — + አዲስ ዕቃ ጨምር</div>';}
+  else {
+    html+='<div class="prod-grid">';
+    sorted.forEach(function(p){
+      var es=expStatus(p.expDate);
+      var cls='pg-card'+(es&&es.status==='expired'?' expired':es&&es.status==='soon'?' exp-soon':'');
+      html+='<div class="'+cls+'" data-detail="'+p.id+'" style="cursor:pointer">';
+      if(p.photo) html+='<img src="'+p.photo+'" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;margin-bottom:6px"/>';
+      html+='<div class="pg-badge">'+cat.icon+' '+cat.name+'</div>';
+      html+='<div class="pg-name">'+p.name+'</div>';
+      html+='<div class="pg-price">'+ETB(p.sellPrice)+'</div>';
+      html+='<div class="pg-unit">/ '+p.unit+'</div>';
+      if(es) html+='<div class="pg-exp '+es.status+'">📅 '+es.label+'</div>';
+      else if(p.expDate) html+='<div class="pg-exp ok">📅 '+p.expDate+'</div>';
+      var thr2=S.lowThreshold||10;
+      html+='<div class="pg-qty'+(p.quantity<=thr2?' low':'')+'">ክምችት: '+p.quantity+'</div>';
+      html+='<div class="pg-actions">';
+      html+='<button class="pg-btn e" data-edit="'+p.id+'">✏️</button>';
+      html+='<button class="pg-btn d" data-del="'+p.id+'">🗑️</button>';
+      html+='</div></div>';
+    });
+    html+='</div>';
+  }
+  return html;
+}
+
+function rCatGrid(){
+  var mm=S.catManageMode;
+  var html='<div class="fr"><div style="font-size:15px;font-weight:800">🌿 ምድቦች</div>'+
+    '<div style="display:flex;gap:6px">'+
+    '<button class="btn '+(mm?'p':'g')+'" id="manage-cat-btn" style="font-size:12px;padding:7px 12px">'+(mm?'✅ ጨርስ':'⚙️ አስተዳድር')+'</button>'+
+    (!mm?'<button class="btn p" id="add-cat-btn" style="font-size:12px;padding:7px 12px">➕ ጨምር</button>':'')+
+    '</div></div>';
+  if(mm){
+    html+='<div class="cat-manage-bar">'+
+      '<span style="font-size:13px;font-weight:700;color:#16A34A">✏️ ምድቦችን አስተዳድር</span>'+
+      '<span class="cat-manage-hint">⬆️⬇️ ቦታ ቀያይር · 🗑️ ሰርዝ</span>'+
+    '</div>';
+  }
+  // "ሁሉም እቃ" virtual card (always first, not in manage mode drag)
+  if(!mm){
+    var allCnt=S.products.length;
+    var allExpCnt=S.products.filter(function(p){var es=expStatus(p.expDate);return es&&(es.status==='expired'||es.status==='soon');}).length;
+    html+='<div style="margin-bottom:4px">';
+    html+='<div class="cat-card" data-cat="__all__" style="border-color:#16A34A;background:linear-gradient(135deg,#DCFCE7,#F0FDF4);grid-column:span 2;display:flex;align-items:center;gap:14px;text-align:left;padding:14px 16px">';
+    html+='<span style="font-size:36px">🌿</span>';
+    html+='<div style="flex:1"><div class="cat-name" style="color:#15803D;font-size:15px">ሁሉም እቃ</div>';
+    html+='<div class="cat-count" style="margin-top:3px">'+allCnt+' ዕቃ'+(allExpCnt>0?' · <span class="badge exp">⚠️'+allExpCnt+'</span>':'')+'</div></div>';
+    html+='<span style="font-size:20px;color:#16A34A">›</span>';
+    html+='</div></div>';
+  }
+  html+='<div class="cat-grid" id="cat-grid-container">';
+  getCats().forEach(function(cat,idx){
+    var cnt=S.products.filter(function(p){return p.category===cat.id;}).length;
+    var expCnt=S.products.filter(function(p){var es=expStatus(p.expDate);return p.category===cat.id&&es&&(es.status==='expired'||es.status==='soon');}).length;
+    if(mm){
+      html+='<div class="cat-card manage-mode" data-cat-idx="'+idx+'" draggable="true" style="border-color:'+cat.color+'44;background:'+cat.bg+';position:relative;padding-top:28px">';
+      html+='<div style="position:absolute;top:6px;left:8px;font-size:18px;color:#9CA3AF">☰</div>';
+      html+='<button class="cat-del-btn" data-del-cat="'+cat.id+'" title="ሰርዝ">✕</button>';
+      html+='<div style="text-align:center;margin-bottom:4px"><span style="font-size:28px">'+cat.icon+'</span></div>';
+      html+='<div class="cat-name" style="color:'+cat.color+';font-size:12px;text-align:center">'+cat.name+'</div>';
+      html+='<div class="cat-count" style="text-align:center;margin-top:2px">'+cnt+' ዕቃ</div>';
+      // up/down buttons
+      html+='<div style="display:flex;gap:4px;margin-top:8px">';
+      if(idx>0) html+='<button class="btn g" style="flex:1;padding:4px;font-size:13px" data-move-cat="'+idx+'" data-move-dir="-1">⬆️</button>';
+      if(idx<getCats().length-1) html+='<button class="btn g" style="flex:1;padding:4px;font-size:13px" data-move-cat="'+idx+'" data-move-dir="1">⬇️</button>';
+      html+='</div>';
+      html+='</div>';
+    } else {
+      html+='<div class="cat-card" data-cat="'+cat.id+'" style="border-color:'+cat.color+'44;background:'+cat.bg+'">';
+      html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+      html+='<span style="font-size:32px">'+cat.icon+'</span>';
+      if(expCnt>0) html+='<span class="badge exp">⚠️'+expCnt+'</span>';
+      html+='</div>';
+      html+='<div class="cat-name" style="color:'+cat.color+';font-size:13px;text-align:left">'+cat.name+'</div>';
+      html+='<div class="cat-count" style="text-align:left;margin-top:4px">'+cnt+' ዕቃ</div>';
+      html+='</div>';
+    }
+  });
+  html+='</div>';
+  return html;
+}
+
+function rSales(){
+  var html='<div class="fr">'+
+    '<div style="font-size:15px;font-weight:800">💰 ሽያጮች ('+S.sales.length+')</div>'+
+    '<button class="btn p" id="as-btn" style="font-size:12px;padding:8px 12px">+ ሽያጭ</button>'+
+    '</div>';
+  html+='<button class="btn g" id="sales-toggle-btn" style="width:100%;margin-bottom:10px;font-size:13px">'+
+    (S.salesListOpen?'🔼 ዝርዝሩን ዝጋ':'🔽 ዝርዝሩን ክፈት')+'</button>';
+  if(!S.salesListOpen) return html;
+  html+='<input class="inp" id="ss" placeholder="ሽያጭ ፈልግ..." value="'+S.sSearch+'" style="margin-bottom:10px"/>';
+  var filtered=S.sales.filter(function(s){return s.productName.includes(S.sSearch)||s.date.includes(S.sSearch);});
+  if(filtered.length===0){html+='<div class="empty">ሽያጭ አልተገኘም</div>';}
+  else filtered.slice().reverse().forEach(function(s){
+    var pr=S.products.find(function(p){return p.id===s.productId;});
+    var prof=pr?(s.price-pr.buyPrice)*s.qty:0;
+    html+='<div class="si">';
+    html+='<div class="sh"><div><div class="sn">'+s.productName+'</div><div class="sm">'+s.date+' · '+s.qty+' '+(pr?pr.unit:'ቁ')+' × '+ETB(s.price)+'</div></div>';
+    html+='<div style="text-align:right"><div class="st2">'+ETB(s.total)+'</div><div class="sp">ትርፍ: '+ETB(prof)+'</div></div></div>';
+    // Edit + Delete buttons for sale
+    html+='<div class="sact">';
+    html+='<button class="btn g" style="flex:1;font-size:12px;padding:6px" data-edit-sale="'+s.id+'">✏️ አስተካክል</button>';
+    html+='<button class="btn d" style="flex:1;font-size:12px;padding:6px" data-del-sale="'+s.id+'">🗑️ ሰርዝ</button>';
+    html+='</div></div>';
+  });
+  return html;
+}
+
+function rReport(d){
+  // ── per-day sales for last 7 days chart ──
+  var days=[];
+  for(var i=6;i>=0;i--){
+    var dt=new Date(); dt.setDate(dt.getDate()-i);
+    var ds=dt.toISOString().slice(0,10);
+    var label=['እሑ','ሰኞ','ማ','ረቡ','ሐሙ','ዓር','ቅዳ'][dt.getDay()];
+    var rev=S.sales.filter(function(s){return s.date===ds;}).reduce(function(a,s){return a+s.total;},0);
+    days.push({label:label,date:ds,rev:rev});
+  }
+  var maxRev=Math.max.apply(null,days.map(function(x){return x.rev;}))||1;
+
+  // ── per-cat revenue ──
+  var catData=getCats().map(function(ct){
+    var ps=S.products.filter(function(p){return p.category===ct.id;});
+    var rev=S.sales.filter(function(s){return ps.find(function(p){return p.id===s.productId;});}).reduce(function(a,s){return a+s.total;},0);
+    var cost=S.sales.filter(function(s){var pr=ps.find(function(p){return p.id===s.productId;});return !!pr;}).reduce(function(a,s){var pr=ps.find(function(p){return p.id===s.productId;});return a+(pr?(s.price-pr.buyPrice)*s.qty:0);},0);
+    return{ct:ct,ps:ps,rev:rev,cost:cost};
+  }).filter(function(x){return x.rev>0;});
+  var maxCatRev=Math.max.apply(null,catData.map(function(x){return x.rev;}))||1;
+
+  var html='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
+  html+='<div style="font-size:15px;font-weight:800">📊 ሪፖርት</div>';
+  html+='<button class="btn p" id="pdf-export-btn" style="font-size:12px;padding:7px 12px">📄 PDF Export</button>';
+  html+='</div>';
+
+  // ── summary cards row ──
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+  var cards=[
+    {l:'ጠቅላላ ሽያጭ',v:ETB(d.rev),c:'#16A34A',bg:'#F0FDF4'},
+    {l:'ትርፍ',v:ETB(d.prof),c:d.prof>=0?'#16A34A':'#EF4444',bg:d.prof>=0?'#F0FDF4':'#FFF5F5'},
+    {l:'የዕቃ ዋጋ',v:ETB(d.inv),c:'#1D4ED8',bg:'#EFF6FF'},
+    {l:'ሽያጭ ብዛት',v:S.sales.length+' ጊዜ',c:'#9333EA',bg:'#FAF5FF'},
+  ];
+  cards.forEach(function(card){
+    html+='<div style="background:'+card.bg+';border-radius:12px;padding:12px 14px">';
+    html+='<div style="font-size:10px;color:#6B7280;margin-bottom:4px">'+card.l+'</div>';
+    html+='<div style="font-size:16px;font-weight:800;color:'+card.c+'">'+card.v+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // ── 7-day bar chart ──
+  html+='<div class="card" style="margin-bottom:10px">';
+  html+='<div class="st" style="margin-bottom:12px">📈 የ7 ቀን ሽያጭ</div>';
+  html+='<div style="display:flex;align-items:flex-end;gap:6px;height:90px;padding:0 4px">';
+  days.forEach(function(day){
+    var h=maxRev>0?Math.round((day.rev/maxRev)*80):0;
+    var today2=new Date().toISOString().slice(0,10);
+    var isToday=day.date===today2;
+    html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">';
+    html+='<div style="font-size:9px;color:#6B7280">'+( day.rev>0?ETB(day.rev).replace('ብር',''):'')+'</div>';
+    html+='<div style="width:100%;background:'+(isToday?'#16A34A':'#86EFAC')+';border-radius:4px 4px 0 0;height:'+h+'px;min-height:'+(day.rev>0?'4':'0')+'px;transition:height 0.3s"></div>';
+    html+='<div style="font-size:10px;font-weight:'+(isToday?'800':'400')+';color:'+(isToday?'#15803D':'#6B7280')+'">'+day.label+'</div>';
+    html+='</div>';
+  });
+  html+='</div></div>';
+
+  // ── per-category bar chart ──
+  if(catData.length>0){
+    html+='<div class="card" style="margin-bottom:10px">';
+    html+='<div class="st" style="margin-bottom:10px">📦 በምድብ ሽያጭ</div>';
+    catData.forEach(function(x){
+      var pct=Math.round((x.rev/maxCatRev)*100);
+      html+='<div style="margin-bottom:10px">';
+      html+='<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
+      html+='<span style="font-size:12px">'+x.ct.icon+' '+x.ct.name+'</span>';
+      html+='<span style="font-size:12px;font-weight:700;color:#16A34A">'+ETB(x.rev)+'</span>';
+      html+='</div>';
+      html+='<div style="background:#E5E7EB;border-radius:6px;height:8px">';
+      html+='<div style="background:'+x.ct.color+';border-radius:6px;height:8px;width:'+pct+'%;transition:width 0.4s"></div>';
+      html+='</div>';
+      html+='<div style="font-size:10px;color:#6B7280;margin-top:2px">'+x.ps.length+' ዕቃ · ትርፍ: '+ETB(x.cost)+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+
+  // ── top 5 products ──
+  var topProds=S.sales.reduce(function(acc,s){
+    acc[s.productId]=(acc[s.productId]||0)+s.total; return acc;
+  },{});
+  var top5=Object.keys(topProds).sort(function(a,b){return topProds[b]-topProds[a];}).slice(0,5).map(function(id){
+    var p=S.products.find(function(x){return x.id===id;});
+    return{name:p?p.name:id,rev:topProds[id]};
+  });
+  if(top5.length>0){
+    html+='<div class="card" style="margin-bottom:10px">';
+    html+='<div class="st" style="margin-bottom:8px">🏆 ምርጥ 5 ዕቃ</div>';
+    top5.forEach(function(p,i){
+      var medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+      html+='<div class="rr"><span>'+medals[i]+' '+p.name+'</span><span style="color:#16A34A;font-weight:700">'+ETB(p.rev)+'</span></div>';
+    });
+    html+='</div>';
+  }
+
+  // ── expiry alerts ──
+  if(d.expAlert.length>0){
+    html+='<div class="exp-banner">';
+    html+='<div class="etitle">⚠️ ጊዜ እያለቀ ያሉ ('+d.expAlert.length+')</div>';
+    d.expAlert.forEach(function(p){var es=expStatus(p.expDate);html+='<div class="exp-row"><span>'+p.name+'</span><span class="badge '+(es.status==='expired'?'exp':'soon')+'">'+es.label+'</span></div>';});
+    html+='</div>';
+  }
+
+  return html;
+}
+
+function rProfit(){
+  var d=D();
+  var exps=S.expenses||[];
+  var totalExp=exps.reduce(function(a,e){return a+e.amount;},0);
+  var netProfit=d.prof-totalExp;
+  var grossMargin=d.rev>0?Math.round((d.prof/d.rev)*100):0;
+  var netMargin=d.rev>0?Math.round((netProfit/d.rev)*100):0;
+
+  // monthly breakdown (last 6 months)
+  var months=[];
+  for(var i=5;i>=0;i--){
+    var dt=new Date();dt.setMonth(dt.getMonth()-i);
+    var ym=dt.toISOString().slice(0,7);
+    var mLabel=['ጥር','የካ','መጋ','ሚያ','ግን','ሐም','ሐም','ነሃ','መስ','ጥቅ','ህዳ','ታህ'][dt.getMonth()];
+    var mRev=S.sales.filter(function(s){return s.date&&s.date.slice(0,7)===ym;}).reduce(function(a,s){return a+s.total;},0);
+    var mProf=S.sales.filter(function(s){return s.date&&s.date.slice(0,7)===ym;}).reduce(function(a,s){var pr=S.products.find(function(p){return p.id===s.productId;});return a+(pr?(s.price-pr.buyPrice)*s.qty:0);},0);
+    var mExp=exps.filter(function(e){return e.date&&e.date.slice(0,7)===ym;}).reduce(function(a,e){return a+e.amount;},0);
+    months.push({label:mLabel,ym:ym,rev:mRev,prof:mProf,exp:mExp,net:mProf-mExp});
+  }
+  var maxVal=Math.max.apply(null,months.map(function(m){return Math.max(m.rev,1);}));
+
+  var html='<div style="font-size:15px;font-weight:800;margin-bottom:12px">📈 ትርፍ / ኪሳራ ሂሳብ</div>';
+
+  // ── KPI summary cards ──
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+  var kpis=[
+    {l:'ጠቅላላ ሽያጭ',v:ETB(d.rev),c:'#1D4ED8',bg:'#EFF6FF'},
+    {l:'ጠቅላላ ትርፍ (gross)',v:ETB(d.prof),c:d.prof>=0?'#16A34A':'#EF4444',bg:d.prof>=0?'#F0FDF4':'#FFF5F5'},
+    {l:'ጠቅላላ ወጪ',v:ETB(totalExp),c:'#DC2626',bg:'#FFF5F5'},
+    {l:'የተጣራ ትርፍ (net)',v:ETB(netProfit),c:netProfit>=0?'#15803D':'#EF4444',bg:netProfit>=0?'#DCFCE7':'#FEE2E2'},
+  ];
+  kpis.forEach(function(k){
+    html+='<div style="background:'+k.bg+';border-radius:12px;padding:12px 14px">';
+    html+='<div style="font-size:10px;color:#6B7280;margin-bottom:4px">'+k.l+'</div>';
+    html+='<div style="font-size:15px;font-weight:800;color:'+k.c+'">'+k.v+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // ── Margin badges ──
+  html+='<div style="display:flex;gap:8px;margin-bottom:12px">';
+  html+='<div style="flex:1;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px;text-align:center">';
+  html+='<div style="font-size:10px;color:#6B7280">Gross Margin</div>';
+  html+='<div style="font-size:20px;font-weight:800;color:#16A34A">'+grossMargin+'%</div></div>';
+  html+='<div style="flex:1;background:'+(netMargin>=0?'#F0FDF4':'#FFF5F5')+';border:1px solid '+(netMargin>=0?'#BBF7D0':'#FCA5A5')+';border-radius:10px;padding:10px;text-align:center">';
+  html+='<div style="font-size:10px;color:#6B7280">Net Margin</div>';
+  html+='<div style="font-size:20px;font-weight:800;color:'+(netMargin>=0?'#16A34A':'#EF4444')+'">'+netMargin+'%</div></div>';
+  html+='</div>';
+
+  // ── 6-month chart ──
+  html+='<div class="card" style="margin-bottom:12px">';
+  html+='<div class="st" style="margin-bottom:10px">📊 የ6 ወር ሒሳብ</div>';
+  html+='<div style="display:flex;align-items:flex-end;gap:4px;height:100px;margin-bottom:6px">';
+  months.forEach(function(m){
+    var rh=maxVal>0?Math.round((m.rev/maxVal)*80):0;
+    var ph=maxVal>0?Math.round((Math.max(0,m.prof)/maxVal)*80):0;
+    html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">';
+    html+='<div style="width:100%;display:flex;gap:2px;align-items:flex-end;height:82px">';
+    html+='<div style="flex:1;background:#93C5FD;border-radius:3px 3px 0 0;height:'+rh+'px;min-height:'+(m.rev>0?3:0)+'px" title="ሽያጭ: '+ETB(m.rev)+'"></div>';
+    html+='<div style="flex:1;background:'+(m.net>=0?'#4ADE80':'#F87171')+';border-radius:3px 3px 0 0;height:'+ph+'px;min-height:'+(m.prof>0?3:0)+'px" title="ትርፍ: '+ETB(m.net)+'"></div>';
+    html+='</div>';
+    html+='<div style="font-size:9px;color:#6B7280">'+m.label+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  html+='<div style="display:flex;gap:12px;font-size:10px;color:#6B7280">';
+  html+='<span><span style="display:inline-block;width:10px;height:10px;background:#93C5FD;border-radius:2px;margin-right:4px"></span>ሽያጭ</span>';
+  html+='<span><span style="display:inline-block;width:10px;height:10px;background:#4ADE80;border-radius:2px;margin-right:4px"></span>ትርፍ</span>';
+  html+='</div></div>';
+
+  // ── Expenses section ──
+  html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+  html+='<div style="font-weight:800;font-size:13px">💸 ወጪዎች</div>';
+  html+='<button class="btn p" id="add-exp-btn" style="font-size:12px;padding:7px 12px">+ ወጪ ጨምር</button>';
+  html+='</div>';
+
+  if(S.showExpForm){
+    html+='<div class="card" style="margin-bottom:10px;border:1.5px solid #FCA5A5;background:#FFF5F5">';
+    html+='<div style="font-weight:700;font-size:13px;margin-bottom:10px;color:#DC2626">💸 አዲስ ወጪ</div>';
+    html+='<input class="inp" id="exp-desc" placeholder="ወጪ ምን?" value="'+S.expF.desc+'" style="margin-bottom:8px"/>';
+    html+='<input class="inp" id="exp-amount" type="number" placeholder="መጠን (ብር)" value="'+S.expF.amount+'" style="margin-bottom:8px"/>';
+    html+='<input class="inp" id="exp-date" type="date" value="'+(S.expF.date||today())+'" style="margin-bottom:10px"/>';
+    html+='<div style="display:flex;gap:8px">';
+    html+='<button class="btn p" id="exp-save" style="flex:1">✅ ጨምር</button>';
+    html+='<button class="btn g" id="exp-cancel" style="flex:1">✕ ሰርዝ</button>';
+    html+='</div></div>';
+  }
+
+  if(exps.length===0){
+    html+='<div class="empty" style="margin-bottom:12px">ወጪ አልተመዘገበም</div>';
+  } else {
+    html+='<div class="card" style="margin-bottom:12px">';
+    exps.slice().reverse().forEach(function(e){
+      html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F3F4F6">';
+      html+='<div><div style="font-size:13px;font-weight:600">'+e.desc+'</div>';
+      html+='<div style="font-size:10px;color:#6B7280">'+e.date+'</div></div>';
+      html+='<div style="display:flex;align-items:center;gap:8px">';
+      html+='<span style="font-size:13px;font-weight:700;color:#DC2626">-'+ETB(e.amount)+'</span>';
+      html+='<button class="btn d" data-del-exp="'+e.id+'" style="padding:4px 8px;font-size:11px">🗑️</button>';
+      html+='</div></div>';
+    });
+    html+='</div>';
+  }
+
+  return html;
+}
+
+function rTrash(){
+  var tr=S.trash;
+  var html='<div style="font-size:15px;font-weight:800;margin-bottom:8px">🗑️ ታሪክ ('+tr.length+')</div>';
+  if(tr.length===0){html+='<div class="empty">የተሰረዘ ዕቃ የለም</div>';return html;}
+  html+='<div style="font-size:12px;color:#6B7280;margin-bottom:12px">↩️ ዕቃ ይመለሳል &nbsp;·&nbsp; ❌ ሙሉ ሰርዝ</div>';
+  tr.slice().reverse().forEach(function(p){
+    var cat=getCat(p.category);
+    html+='<div class="pi" style="background:#FFF8F0;border-color:#FED7AA">';
+    html+='<div class="pic" style="background:'+cat.bg+'">'+cat.icon+'</div>';
+    html+='<div class="pinfo"><div class="pname">'+p.name+'</div>';
+    html+='<div class="pcat">'+cat.name+' · '+ETB(p.sellPrice)+'</div>';
+    html+='<div class="pqty" style="color:#EA580C">ተሰርዘዋል: '+p.deletedAt+'</div></div>';
+    html+='<div class="pact">';
+    html+='<button class="ib" style="background:#DCFCE7;font-size:15px" data-restore="'+p.id+'">↩️</button>';
+    html+='<button class="ib dl" data-perm="'+p.id+'">❌</button>';
+    html+='</div></div>';
+  });
+  return html;
+}
+
+function rDetailMod(){
+  var p=S.detailP;
+  if(!p) return '';
+  var cat=getCat(p.category);
+  var es=expStatus(p.expDate);
+  var html='<div class="mbg" id="dtlbg"><div class="mod">';
+  if(p.photo) html+='<img src="'+p.photo+'" style="width:100%;max-height:220px;object-fit:cover;border-radius:14px;margin-bottom:14px"/>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">';
+  html+='<div style="width:48px;height:48px;border-radius:12px;background:'+cat.bg+';display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">'+cat.icon+'</div>';
+  html+='<div><div style="font-size:17px;font-weight:800">'+p.name+'</div><div style="font-size:12px;color:#6B7280">'+cat.name+'</div></div></div>';
+  // price big
+  html+='<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">';
+  html+='<div><div style="font-size:11px;color:#6B7280">የሽያጭ ዋጋ</div><div style="font-size:22px;font-weight:800;color:#16A34A">'+ETB(p.sellPrice)+'</div><div style="font-size:10px;color:#6B7280">/ '+p.unit+'</div></div>';
+  html+='<div style="text-align:right"><div style="font-size:11px;color:#6B7280">የግዥ ዋጋ</div><div style="font-size:16px;font-weight:700;color:#15803D">'+ETB(p.buyPrice)+'</div></div></div>';
+  // details
+  html+='<div class="card" style="margin-bottom:12px">';
+  var dThr=S.lowThreshold||10;
+  html+='<div class="detail-row"><span class="detail-label">ክምችት</span><span class="detail-val'+(p.quantity<=dThr?' wv':'')+'">'+p.quantity+' '+p.unit+(p.quantity<=dThr?' ⚠️':'')+'</span></div>';
+  if(p.expDate){
+    html+='<div class="detail-row"><span class="detail-label">📅 Exp Date</span><span class="detail-val '+(es?es.status:'ok')+'">'+(es?es.label:p.expDate)+'</span></div>';
+  }
+  html+='</div>';
+  // description
+  if(p.desc){
+    html+='<div style="font-size:12px;font-weight:600;color:#6B7280;margin-bottom:6px">📋 አጠቃቀም / ማብራሪያ</div>';
+    html+='<div class="desc-box">'+p.desc+'</div>';
+  }
+  html+='<div class="ma" style="margin-top:16px">';
+  html+='<button class="btn g" id="dtl-close" style="flex:1">ዝጋ</button>';
+  html+='<button class="btn p" data-edit="'+p.id+'" id="dtl-edit" style="flex:2">✏️ አስተካክል</button>';
+  html+='</div></div></div>';
+  return html;
+}
+
+
+function rCatMod(){
+  var f=S.catF;
+  var icons=['🌿','🧪','🌾','🍄','🐛','🪲','🌱','🚿','📦','💊','🔬','🌻','🐄','🐔','🐟','🌽','🥕','🫘','🧴','🧹'];
+  var colors=['#16A34A','#7C3AED','#CA8A04','#BE185D','#DC2626','#EA580C','#059669','#0284C7','#6B7280','#0891B2'];
+  var html='<div class="mbg" id="catmbg"><div class="mod">';
+  html+='<div class="mt">➕ አዲስ ምድብ ጨምር</div>';
+  html+='<div class="lbl">የምድብ ስም</div>';
+  html+='<input class="inp" id="cat-name" type="text" placeholder="ለምሳሌ: ፈንጊሳይድ" value="'+(f.name||'')+'"/>';
+  html+='<div class="lbl">አዶ (Icon) ምረጥ</div>';
+  html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">';
+  icons.forEach(function(ic){
+    html+='<button class="cat-icon-btn" data-ico="'+ic+'" style="width:36px;height:36px;border-radius:8px;border:2px solid '+(f.icon===ic?'#16A34A':'#BBF7D0')+';background:'+(f.icon===ic?'#DCFCE7':'#fff')+';font-size:18px;cursor:pointer">'+ic+'</button>';
+  });
+  html+='</div>';
+  html+='<div class="lbl">ቀለም ምረጥ</div>';
+  html+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">';
+  colors.forEach(function(col){
+    html+='<button class="cat-color-btn" data-col="'+col+'" style="width:32px;height:32px;border-radius:50%;background:'+col+';border:3px solid '+(f.color===col?'#1C2B1A':'transparent')+';cursor:pointer"></button>';
+  });
+  html+='</div>';
+  html+='<div class="ma">';
+  html+='<button class="btn g" id="cat-cancel" style="flex:1">ሰርዝ</button>';
+  html+='<button class="btn p" id="cat-save" style="flex:2">💾 አስቀምጥ</button>';
+  html+='</div></div></div>';
+  return html;
+}
+
+function rPMod(){
+  var f=S.pF;
+  var html='<div class="mbg" id="pmb"><div class="mod">';
+  html+='<div class="mt">'+(S.editP?'✏️ ዕቃ አስተካክል':'➕ አዲስ ዕቃ')+'</div>';
+  html+='<div class="lbl">📷 የዕቃ ፎቶ — አማራጭ</div>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
+  if(f.photo){
+    html+='<img id="pf-preview" src="'+f.photo+'" style="width:64px;height:64px;object-fit:cover;border-radius:12px;border:1.5px solid #BBF7D0"/>';
+  } else {
+    html+='<div id="pf-preview-ph" style="width:64px;height:64px;border-radius:12px;background:#F0FDF4;border:1.5px dashed #BBF7D0;display:flex;align-items:center;justify-content:center;font-size:22px;color:#9CA3AF">📷</div>';
+  }
+  html+='<label style="flex:1;text-align:center;border:1.5px dashed #16A34A;color:#16A34A;border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">'+
+    '🖼️ ፎቶ ምረጥ'+
+    '<input type="file" id="pf-photo-input" accept="image/*" style="display:none"/>'+
+    '</label>';
+  if(f.photo) html+='<button type="button" id="pf-photo-clear" class="btn g" style="padding:10px 12px;font-size:12px">✕</button>';
+  html+='</div>';
+  html+='<div class="lbl">የዕቃ ስም</div><input class="inp pfi" data-k="name" type="text" placeholder="ለምሳሌ: ራውንድ አፕ" value="'+(f.name||'')+'"/>';
+  html+='<div class="lbl">ምድብ</div><select class="inp pfi" data-k="category">';
+  getCats().forEach(function(c){html+='<option value="'+c.id+'"'+(f.category===c.id?' selected':'')+'>'+c.icon+' '+c.name+'</option>';});
+  html+='</select>';
+  html+='<div class="lbl">ብዛት</div><input class="inp pfi" data-k="quantity" type="number" placeholder="0" value="'+(f.quantity||'')+'"/>';
+  html+='<div class="lbl">የግዥ ዋጋ (ብር)</div><input class="inp pfi" data-k="buyPrice" type="number" placeholder="0" value="'+(f.buyPrice||'')+'"/>';
+  html+='<div class="lbl">የሽያጭ ዋጋ (ብር)</div><input class="inp pfi" data-k="sellPrice" type="number" placeholder="0" value="'+(f.sellPrice||'')+'"/>';
+  html+='<div class="lbl">መለኪያ</div><input class="inp pfi" data-k="unit" type="text" placeholder="ሊ / ኪ.ግ / ከረጢት" value="'+(f.unit||'')+'"/>';
+  html+='<div class="lbl">📅 Exp Date (ጊዜ ማለቂያ) — አማራጭ</div><input class="inp pfi" data-k="expDate" type="date" value="'+(f.expDate||'')+'"/>';
+  html+='<div class="lbl">📋 አጠቃቀም / ማብራሪያ — አማራጭ</div><textarea class="inp pfi" data-k="desc" rows="3" placeholder="የመድሃኒቱ አጠቃቀም፣ መጠን፣ ማስጠንቀቂያ...">'+(f.desc||'')+'</textarea>';
+  html+='<div class="ma"><button class="btn g" id="pc" style="flex:1">ሰርዝ</button><button class="btn p" id="ps2" style="flex:2">💾 አስቀምጥ</button></div>';
+  html+='</div></div>';
+  return html;
+}
+
+function rSMod(){
+  var f=S.sF;
+  var pr=S.products.find(function(p){return p.id===f.productId;});
+  var tot=pr&&f.qty?pr.sellPrice*+f.qty:0;
+  var html='<div class="mbg" id="smb"><div class="mod">';
+  html+='<div class="mt">'+(S.editS?'✏️ ሽያጭ አስተካክል':'💰 ሽያጭ ምዝገባ')+'</div>';
+  html+='<div class="lbl">ዕቃ ምረጥ</div><select class="inp" id="sp">';
+  html+='<option value="">-- ዕቃ ምረጥ --</option>';
+  getCats().forEach(function(c){
+    var ps=S.products.filter(function(p){return p.category===c.id;});
+    if(ps.length>0){
+      html+='<optgroup label="'+c.icon+' '+c.name+'">';
+      ps.forEach(function(p){html+='<option value="'+p.id+'"'+(f.productId===p.id?' selected':'')+'>'+p.name+' ('+p.quantity+' '+p.unit+') — '+ETB(p.sellPrice)+'</option>';});
+      html+='</optgroup>';
+    }
+  });
+  html+='</select>';
+  html+='<div class="lbl">ብዛት</div><input class="inp" id="sq" type="number" placeholder="0" value="'+(f.qty||'')+'"/>';
+  html+='<div class="lbl">ቀን</div><input class="inp" id="sd" type="date" value="'+f.date+'"/>';
+  if(tot>0) html+='<div class="tp">💰 ጠቅላላ: <strong>'+ETB(tot)+'</strong></div>';
+  html+='<div class="ma"><button class="btn g" id="sc2" style="flex:1">ሰርዝ</button><button class="btn p" id="ss2" style="flex:2">💾 '+(S.editS?'አዘምን':'ምዝገብ')+'</button></div>';
+  html+='</div></div>';
+  return html;
+}
+
+function rAIMod(){
+  var f=S.aiF;
+  var html='<div class="mbg" id="aimb"><div class="mod">';
+  html+='<div class="mt" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent">🌿 የእፅዋት ሐኪም</div>';
+  html+='<div class="ibox" style="margin-bottom:10px;background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-color:#7C3AED33">🌿 የበሽታውን ወይም ችግሩን ምልክት ግለጹ (ለምሳሌ፡ ቅጠሉ ወደ ቢጫ እየተለወጠ ነው፣ ትል አለ...) ካለዎት ክምችት ውስጥ ተስማሚውን መድሃኒት እንመክርዎታለን። ይህ ያለ ኢንተርኔት የሚሰራ የግንባታ እውቀት (offline) ሲሆን፣ ውስብስብ ወይም ያልተለመደ ችግር ካለ ከባለሙያ ጋር ማማከር ይመከራል።</div>';
+  html+='<div class="lbl">📷 የተክሉ ፎቶ — ለማስታወሻ ብቻ (አማራጭ)</div>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
+  if(f.photo){
+    html+='<img id="ai-photo-preview" src="'+f.photo+'" style="width:64px;height:64px;object-fit:cover;border-radius:12px;border:1.5px solid #BBF7D0"/>';
+  } else {
+    html+='<div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#F0FDF4,#F5F3FF);border:1.5px dashed #BBF7D0;display:flex;align-items:center;justify-content:center;font-size:22px;color:#9CA3AF">📷</div>';
+  }
+  html+='<label style="flex:1;text-align:center;border:1.5px dashed #7C3AED;color:#7C3AED;border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">'+
+    '🖼️ ፎቶ ጨምር'+
+    '<input type="file" id="ai-photo-input" accept="image/*" style="display:none"/>'+
+    '</label>';
+  if(f.photo) html+='<button type="button" id="ai-photo-clear" class="btn g" style="padding:10px 12px;font-size:12px">✕</button>';
+  html+='</div>';
+  html+='<div class="lbl">የችግሩ መግለጫ</div><textarea class="inp" id="ai-query" rows="4" placeholder="ለምሳሌ፡ የቲማቲም ቅጠል ላይ ነጭ ነጠብጣብ አለ፣ እየደረቀ ነው...">'+(f.query||'')+'</textarea>';
+  html+='<div class="ma"><button class="btn g" id="ai-cancel" style="flex:1">ዝጋ</button><button class="btn p" id="ai-ask" style="flex:2;background:linear-gradient(135deg,#7C3AED,#5B21B6)">🔍 ምከረኝ</button></div>';
+  if(S.aiError){
+    html+='<div class="err" style="margin-top:10px">⚠️ '+escHtml(S.aiError)+'</div>';
+  }
+  if(S.aiResult){
+    html+='<div style="margin-top:12px;border-radius:16px;padding:16px;border:1px solid #7C3AED33;background:linear-gradient(135deg,#F5F3FF,#FAF5FF);white-space:pre-wrap;line-height:1.6;font-size:13px">'+escHtml(S.aiResult)+'</div>';
+    html+='<button type="button" id="ai-speak" style="margin-top:8px;width:100%;padding:11px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#16A34A,#15803D)">'+(S.aiSpeaking?'⏹️ ማንበብ አቁም':'🔊 መድሃኒቱን እና አጠቃቀሙን አንብብልኝ')+'</button>';
+  }
+  if(S.aiHistory&&S.aiHistory.length>0){
+    html+='<div class="st" style="margin-top:14px">🕘 ያለፉ ጥያቄዎች</div>';
+    S.aiHistory.slice(0,5).forEach(function(h){
+      html+='<div class="pi" data-hist="'+h.id+'" style="cursor:pointer;background:linear-gradient(135deg,#ffffff,#FAF5FF)">'+
+        '<div class="pic" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);color:#7C3AED">🤖</div>'+
+        '<div class="pinfo"><div class="pname" style="font-size:13px">'+escHtml(h.query.slice(0,40))+(h.query.length>40?'...':'')+'</div>'+
+        '<div class="pcat">'+h.date+'</div></div></div>';
+    });
+  }
+  html+='</div></div>';
+  return html;
+}
+
+function rSettings(){
+  var html='<div class="card">';
+  html+='<div class="st" style="font-size:15px">📱 Telegram ቅንጅት</div>';
+  html+='<div class="tp" style="margin-bottom:14px">🤖 Telegram Bot</div>';
+  html+='<div class="lbl">Bot Token</div>';
+  html+='<input class="inp" id="set-tg-token" type="password" placeholder="123456:ABC-..." value="'+S.tgTokenInput+'"/>';
+  html+='<div class="lbl">Chat ID</div>';
+  html+='<input class="inp" id="set-tg-chat" placeholder="1060051687" value="'+S.tgChatInput+'"/>';
+  html+='<button class="btn p full" id="set-tg-save" style="margin-bottom:10px">💾 አስቀምጥ</button>';
+  html+='<button class="btn g full" id="set-tg-test">🧪 መልእክት ላክ (ሙከራ)</button>';
+  html+='</div>';
+
+  html+='<div class="card">';
+  html+='<div class="st" style="font-size:15px">🗄️ ዳታ ምትኬ</div>';
+  html+='<button id="set-tg-backup" style="width:100%;background:linear-gradient(135deg,#0088cc,#0066aa);color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;font-family:inherit">📤 Telegram ላይ Backup ላክ</button>';
+  html+='<label style="display:block;text-align:center;border:1.5px dashed #16A34A;color:#16A34A;border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px">'+
+    '📥 Backup File ከፍተህ አስገባ'+
+    '<input type="file" id="set-restore-file" accept=".json,application/json" style="display:none"/>'+
+    '</label>';
+  html+='<button class="btn d full" id="set-delete-all">🗑️ ሁሉንም ሰርዝ</button>';
+  html+='</div>';
+  return html;
+}
+
+function rConfDelAll(){
+  return '<div class="cmod-bg" id="cadb"><div class="cmod">'+
+    '<div class="bi">⚠️</div><h3>ሁሉንም ውሂብ ይሰርዙ?</h3>'+
+    '<p>ሁሉም ዕቃ፣ ሽያጭ እና ታሪክ ለዘላለም ይጠፋሉ። ይህ ተግባር መልሶ አይመለስም።</p>'+
+    '<div class="ca"><button class="btn g" id="cadc" style="flex:1">ሰርዝ</button><button class="btn d" id="cado" style="flex:1">አዎ፣ ሰርዝ</button></div>'+
+    '</div></div>';
+}
+
+function rConfDel(){
+  return '<div class="cmod-bg" id="cb"><div class="cmod">'+
+    '<div class="bi">🗑️</div><h3>"'+S.confDel.name+'" ይሰርዙ?</h3>'+
+    '<p>ወደ ታሪክ ይሄዳል — መልሶ ማምጣት ይቻላል።</p>'+
+    '<div class="ca"><button class="btn g" id="cc" style="flex:1">ሰርዝ</button><button class="btn d" id="co" style="flex:1">አዎ</button></div>'+
+    '</div></div>';
+}
+function rConfDelSale(){
+  return '<div class="cmod-bg" id="csb"><div class="cmod">'+
+    '<div class="bi">🗑️</div><h3>ሽያጭ ይሰርዙ?</h3>'+
+    '<p>ክምችቱ ተመልሶ ይጨመራል።</p>'+
+    '<div class="ca"><button class="btn g" id="csc" style="flex:1">ሰርዝ</button><button class="btn d" id="cso" style="flex:1">አዎ</button></div>'+
+    '</div></div>';
+}
+
+// ── Bind ──────────────────────────────────────────────────────────────────
+function bindLogin(){
+  document.getElementById('li').addEventListener('input',function(e){S.loginVal=e.target.value;S.loginErr='';});
+  document.getElementById('li').addEventListener('keydown',function(e){if(e.key==='Enter')login();});
+  document.getElementById('lb').addEventListener('click',login);
+}
+function bindMain(){
+  document.getElementById('ob')?.addEventListener('click',logout);
+  document.getElementById('ai-open-btn')?.addEventListener('click',function(){set({showAIForm:true,aiResult:null,aiError:null,aiF:{query:'',photo:''}});});
+  document.getElementById('ai-cancel')?.addEventListener('click',function(){window.speechSynthesis?.cancel();set({showAIForm:false,aiSpeaking:false});});
+  document.getElementById('aimb')?.addEventListener('click',function(e){if(e.target.id==='aimb'){window.speechSynthesis?.cancel();set({showAIForm:false,aiSpeaking:false});}});
+  document.getElementById('ai-query')?.addEventListener('input',function(e){S.aiF.query=e.target.value;});
+  document.getElementById('ai-ask')?.addEventListener('click',askAI);
+  document.getElementById('ai-speak')?.addEventListener('click',speakAIResult);
+  document.getElementById('ai-photo-input')?.addEventListener('change',function(e){
+    var file=e.target.files&&e.target.files[0];
+    if(!file) return;
+    compressImage(file,480,480,0.7,function(dataUrl){
+      S.aiF.photo=dataUrl;
+      set({});
+    });
+  });
+  document.getElementById('ai-photo-clear')?.addEventListener('click',function(e){e.stopPropagation();S.aiF.photo='';set({});});
+  document.querySelectorAll('[data-hist]').forEach(function(b){b.addEventListener('click',function(){
+    var h=S.aiHistory.find(function(x){return x.id===b.dataset.hist;});
+    if(h){window.speechSynthesis?.cancel();set({aiResult:h.result,aiF:{query:h.query,photo:S.aiF.photo},aiSpeaking:false});}
+  });});
+  document.getElementById('manual-backup-btn')?.addEventListener('click',async function(){
+    showToast('📤 Telegram ላይ እየላከ...');
+    await tgSaveBackup(S.user,{products:S.products,sales:S.sales,trash:S.trash,cats:S.cats});
+    showToast('✅ Telegram backup ተላከ!');
+  });
+  document.getElementById('install-btn')?.addEventListener('click',triggerInstall);
+  // settings page
+  document.getElementById('set-tg-token')?.addEventListener('input',function(e){S.tgTokenInput=e.target.value;});
+  document.getElementById('set-tg-chat')?.addEventListener('input',function(e){S.tgChatInput=e.target.value;});
+  document.getElementById('set-tg-save')?.addEventListener('click',function(){
+    saveTgConfig(S.tgTokenInput,S.tgChatInput);
+    set({tgTokenInput:TG_TOKEN,tgChatInput:TG_CHAT});
+    showToast('✅ ቅንብር ተቀምጧል!');
+  });
+  document.getElementById('set-tg-test')?.addEventListener('click',tgTestSend);
+  document.getElementById('set-tg-backup')?.addEventListener('click',async function(){
+    showToast('📤 Telegram ላይ እየላከ...');
+    var ok=await tgSaveBackup(S.user,{products:S.products,sales:S.sales,trash:S.trash,cats:S.cats});
+    showToast(ok?'✅ Telegram backup ተላከ!':'❌ አልተላከም — ቅንብር ያረጋግጡ');
+  });
+  var setRestore=document.getElementById('set-restore-file');
+  if(setRestore){
+    setRestore.addEventListener('change',function(e){
+      var f=e.target.files&&e.target.files[0];
+      if(f) importFromFile(f);
+      setRestore.value='';
+    });
+  }
+  document.getElementById('set-delete-all')?.addEventListener('click',function(){set({confDelAll:true});});
+  document.getElementById('cadc')?.addEventListener('click',function(){set({confDelAll:false});});
+  document.getElementById('cado')?.addEventListener('click',resetAllData);
+  document.getElementById('cadb')?.addEventListener('click',function(e){if(e.target.id==='cadb')set({confDelAll:false});});
+  if(deferredPrompt) showInstallBar();
+  document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){set({tab:b.dataset.tab,selCat:null});});});
+  // pdf export
+  document.getElementById('pdf-export-btn')?.addEventListener('click',exportPDF);
+  // import file
+  var imp=document.getElementById('import-file-input');
+  if(imp){
+    imp.addEventListener('change',function(e){
+      var f=e.target.files&&e.target.files[0];
+      if(f) importFromFile(f);
+      imp.value='';
+    });
+  }
+  // add cat btn
+  document.getElementById('add-cat-btn')?.addEventListener('click',function(){set({showCatForm:true,catF:{name:'',icon:'🌿',color:'#16A34A'},catForm:{name:'',icon:'🌿',color:'#16A34A'}});});
+  // manage mode toggle
+  document.getElementById('manage-cat-btn')?.addEventListener('click',function(){set({catManageMode:!S.catManageMode});});
+  // del cat (works for all cats in manage mode)
+  document.querySelectorAll('[data-del-cat]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();deleteCat(b.getAttribute('data-del-cat'));});});
+  // move cat up/down
+  document.querySelectorAll('[data-move-cat]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();moveCat(+b.dataset.moveCat,+b.dataset.moveDir);});});
+  // drag-drop reorder
+  (function(){
+    var grid=document.getElementById('cat-grid-container');
+    if(!grid) return;
+    var dragIdx=null;
+    grid.querySelectorAll('[data-cat-idx]').forEach(function(el){
+      el.addEventListener('dragstart',function(){dragIdx=+el.dataset.catIdx;el.classList.add('dragging');});
+      el.addEventListener('dragend',function(){el.classList.remove('dragging');grid.querySelectorAll('[data-cat-idx]').forEach(function(x){x.classList.remove('drag-over');});});
+      el.addEventListener('dragover',function(e){e.preventDefault();el.classList.add('drag-over');});
+      el.addEventListener('dragleave',function(){el.classList.remove('drag-over');});
+      el.addEventListener('drop',function(e){
+        e.preventDefault();el.classList.remove('drag-over');
+        var toIdx=+el.dataset.catIdx;
+        if(dragIdx===null||dragIdx===toIdx) return;
+        var cats=getCats().slice();
+        var moved=cats.splice(dragIdx,1)[0];
+        cats.splice(toIdx,0,moved);
+        CATS=cats;saveCats(S.user,CATS);saveData(S.user,S.products,S.sales,S.trash,cats);
+        set({cats:cats});
+      });
+    });
+  })();
+  // cat navigate (only in normal mode)
+  document.querySelectorAll('[data-cat]').forEach(function(b){b.addEventListener('click',function(){if(!S.catManageMode)set({selCat:b.dataset.cat,pSearch:'',showPForm:false});});});
+  // cat form binds (single unified form)
+  document.getElementById('cat-name')?.addEventListener('input',function(e){S.catF.name=e.target.value;S.catForm.name=e.target.value;});
+  document.querySelectorAll('.cat-icon-btn').forEach(function(b){b.addEventListener('click',function(){S.catF.icon=b.dataset.ico;S.catForm.icon=b.dataset.ico;render();});});
+  document.querySelectorAll('.cat-color-btn').forEach(function(b){b.addEventListener('click',function(){S.catF.color=b.dataset.col;S.catForm.color=b.dataset.col;render();});});
+  document.getElementById('cat-cancel')?.addEventListener('click',function(){set({showCatForm:false});});
+  document.getElementById('cat-save')?.addEventListener('click',addCat);
+  document.getElementById('catmbg')?.addEventListener('click',function(e){if(e.target.id==='catmbg')set({showCatForm:false});});
+  document.getElementById('back-cat')?.addEventListener('click',function(){set({selCat:null,pSearch:''});});
+  // inv
+  document.getElementById('ap-btn')?.addEventListener('click',function(){
+    var defCat=S.selCat==='__all__'?(S.allCatFilter||getCats()[0].id):S.selCat||'arem';
+    set({showPForm:true,editP:null,pF:{name:'',category:defCat,quantity:'',buyPrice:'',sellPrice:'',unit:'ሊ',expDate:'',desc:'',photo:''}});
+  });
+  // ሁሉም እቃ category filter chips
+  document.querySelectorAll('[data-allcat]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();set({allCatFilter:b.dataset.allcat});});
+  });
+  document.getElementById('ps')?.addEventListener('input',debounce(function(e){set({pSearch:e.target.value});},180));
+  document.querySelectorAll('[data-psort]').forEach(function(b){b.addEventListener('click',function(){set({pSort:b.dataset.psort});});});
+  // expense binds
+  document.getElementById('add-exp-btn')?.addEventListener('click',function(){set({showExpForm:true,expF:{desc:'',amount:'',date:today()}});});
+  document.getElementById('exp-save')?.addEventListener('click',addExpense);
+  document.getElementById('exp-cancel')?.addEventListener('click',function(){set({showExpForm:false});});
+  document.getElementById('exp-desc')?.addEventListener('input',function(e){S.expF.desc=e.target.value;});
+  document.getElementById('exp-amount')?.addEventListener('input',function(e){S.expF.amount=e.target.value;});
+  document.getElementById('exp-date')?.addEventListener('change',function(e){S.expF.date=e.target.value;});
+  document.querySelectorAll('[data-del-exp]').forEach(function(b){b.addEventListener('click',function(){deleteExpense(b.dataset.delExp);});});
+  // low stock threshold buttons
+  document.querySelectorAll('[data-thresh]').forEach(function(b){
+    b.addEventListener('click',function(){
+      set({lowThreshold:+b.dataset.thresh});
+      localStorage.setItem('grb_low_thresh',b.dataset.thresh);
+    });
+  });
+  // check low stock & send notification
+  document.getElementById('check-low-btn')?.addEventListener('click',checkLowStock);
+  // detail card click
+  document.querySelectorAll('[data-detail]').forEach(function(b){
+    b.addEventListener('click',function(e){
+      // don't trigger if edit/del btn clicked
+      if(e.target.closest('[data-edit]')||e.target.closest('[data-del]')) return;
+      var p=S.products.find(function(x){return x.id===b.dataset.detail;});
+      if(p) set({detailP:p});
+    });
+  });
+  document.getElementById('dtl-close')?.addEventListener('click',function(){set({detailP:null});});
+  document.getElementById('dtl-edit')?.addEventListener('click',function(){
+    var p=S.detailP;
+    if(p){set({detailP:null,showPForm:true,editP:p,pF:{name:p.name,category:p.category,quantity:p.quantity,buyPrice:p.buyPrice,sellPrice:p.sellPrice,unit:p.unit,expDate:p.expDate||'',desc:p.desc||'',photo:p.photo||''}});}
+  });
+  document.getElementById('dtlbg')?.addEventListener('click',function(e){if(e.target.id==='dtlbg')set({detailP:null});});
+  document.querySelectorAll('[data-edit]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();var p=S.products.find(function(x){return x.id===b.dataset.edit;});if(p)set({showPForm:true,editP:p,pF:{name:p.name,category:p.category,quantity:p.quantity,buyPrice:p.buyPrice,sellPrice:p.sellPrice,unit:p.unit,expDate:p.expDate||'',desc:p.desc||'',photo:p.photo||''}});});});
+  document.querySelectorAll('[data-del]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();var p=S.products.find(function(x){return x.id===b.dataset.del;});if(p)set({confDel:p});});});
+  // trash: restore
+  document.querySelectorAll('[data-restore]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();restoreProd(b.dataset.restore);showToast('↩️ ዕቃ ተመለሰ!');});
+  });
+  // trash: permanent delete
+  document.querySelectorAll('[data-perm]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();
+      if(confirm('ሙሉ ለሙሉ ይሰረዝ?')) permDel(b.dataset.perm);
+    });
+  });
+  // prod form
+  document.querySelectorAll('.pfi').forEach(function(i){i.addEventListener('input',function(e){S.pF[e.target.dataset.k]=e.target.value;});});
+  document.getElementById('pc')?.addEventListener('click',function(){set({showPForm:false});});
+  document.getElementById('ps2')?.addEventListener('click',saveProd);
+  document.getElementById('pmb')?.addEventListener('click',function(e){if(e.target.id==='pmb')set({showPForm:false});});
+  document.getElementById('pf-photo-input')?.addEventListener('change',function(e){
+    var file=e.target.files&&e.target.files[0];
+    if(!file) return;
+    compressImage(file,320,320,0.7,function(dataUrl){
+      S.pF.photo=dataUrl;
+      set({});
+    });
+  });
+  document.getElementById('pf-photo-clear')?.addEventListener('click',function(e){e.stopPropagation();S.pF.photo='';set({});});
+  // sales
+  document.getElementById('as-btn')?.addEventListener('click',function(){set({showSForm:true,editS:null,sF:{productId:'',qty:'',date:today()}});});
+  document.getElementById('sales-toggle-btn')?.addEventListener('click',function(){set({salesListOpen:!S.salesListOpen});});
+  document.getElementById('ss')?.addEventListener('input',debounce(function(e){set({sSearch:e.target.value});},180));
+  // sale edit/delete
+  document.querySelectorAll('[data-edit-sale]').forEach(function(b){b.addEventListener('click',function(){
+    var s=S.sales.find(function(x){return x.id===b.dataset.editSale;});
+    if(s)set({showSForm:true,editS:s.id,sF:{productId:s.productId,qty:s.qty,date:s.date}});
+  });});
+  document.querySelectorAll('[data-del-sale]').forEach(function(b){b.addEventListener('click',function(){
+    var s=S.sales.find(function(x){return x.id===b.dataset.delSale;});
+    if(s)set({confDelSale:s});
+  });});
+  // sale form
+  document.getElementById('sp')?.addEventListener('change',function(e){S.sF.productId=e.target.value;render();});
+  document.getElementById('sq')?.addEventListener('input',function(e){S.sF.qty=e.target.value;render();});
+  document.getElementById('sd')?.addEventListener('input',function(e){S.sF.date=e.target.value;});
+  document.getElementById('sc2')?.addEventListener('click',function(){set({showSForm:false,editS:null});});
+  document.getElementById('ss2')?.addEventListener('click',saveSale);
+  document.getElementById('smb')?.addEventListener('click',function(e){if(e.target.id==='smb')set({showSForm:false,editS:null});});
+  // confirm del prod
+  document.getElementById('cc')?.addEventListener('click',function(){set({confDel:null});});
+  document.getElementById('co')?.addEventListener('click',function(){delProd(S.confDel.id);});
+  document.getElementById('cb')?.addEventListener('click',function(e){if(e.target.id==='cb')set({confDel:null});});
+  // confirm del sale
+  document.getElementById('csc')?.addEventListener('click',function(){set({confDelSale:null});});
+  document.getElementById('cso')?.addEventListener('click',function(){delSale(S.confDelSale.id);});
+  document.getElementById('csb')?.addEventListener('click',function(e){if(e.target.id==='csb')set({confDelSale:null});});
+  // trash
+  document.querySelectorAll('[data-restore]').forEach(function(b){b.addEventListener('click',function(){restoreProd(b.dataset.restore);});});
+  document.querySelectorAll('[data-perm]').forEach(function(b){b.addEventListener('click',function(){permDel(b.dataset.perm);});});
+}
+
+// ── Install prompt ───────────────────────────────────────────────────────
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  showInstallBar();
+});
+window.addEventListener('appinstalled',function(){
+  hideInstallBar();
+  deferredPrompt=null;
+  showToast('✅ አፑ ተጭኗል!');
+});
+function showInstallBar(){
+  var bar=document.getElementById('install-bar');
+  if(bar) bar.style.display='flex';
+}
+function hideInstallBar(){
+  var bar=document.getElementById('install-bar');
+  if(bar) bar.style.display='none';
+}
+function triggerInstall(){
+  if(!deferredPrompt){
+    showToast('📱 Browser ⋮ → "Add to Home Screen" ተጫን');
+    return;
+  }
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(r){
+    if(r.outcome==='accepted') showToast('✅ አፑ እየተጫነ ነው!');
+    deferredPrompt=null;
+    hideInstallBar();
+  });
+}
+
+// ── PWA (offline support via external sw.js) ───────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
+}
+// ── PDF Export ───────────────────────────────────────────────────────────
+function exportPDF(){
+  var d=D();
+  var now=new Date().toLocaleString('am-ET');
+  var catRows=getCats().map(function(ct){
+    var ps=S.products.filter(function(p){return p.category===ct.id;});
+    var rev=S.sales.filter(function(s){return ps.find(function(p){return p.id===s.productId;});}).reduce(function(a,s){return a+s.total;},0);
+    var prof=S.sales.filter(function(s){var pr=ps.find(function(p){return p.id===s.productId;});return !!pr;}).reduce(function(a,s){var pr=ps.find(function(p){return p.id===s.productId;});return a+(pr?(s.price-pr.buyPrice)*s.qty:0);},0);
+    return '<tr><td>'+ct.icon+' '+ct.name+'</td><td>'+ps.length+'</td><td>'+ETB(rev)+'</td><td style="color:'+(prof>=0?'green':'red')+'">'+ETB(prof)+'</td></tr>';
+  }).join('');
+  var top=Object.keys(S.sales.reduce(function(acc,s){acc[s.productId]=(acc[s.productId]||0)+s.total;return acc;},{})).sort(function(a,b){return (S.sales.filter(function(x){return x.productId===b;}).reduce(function(a,s){return a+s.total;},0))-(S.sales.filter(function(x){return x.productId===a;}).reduce(function(a,s){return a+s.total;},0));}).slice(0,5).map(function(id,i){
+    var p=S.products.find(function(x){return x.id===id;});
+    var rev=S.sales.filter(function(s){return s.productId===id;}).reduce(function(a,s){return a+s.total;},0);
+    return '<tr><td>'+(i+1)+'</td><td>'+(p?p.name:id)+'</td><td>'+ETB(rev)+'</td></tr>';
+  }).join('');
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ሪፖርት</title><style>'+
+    'body{font-family:Arial,sans-serif;padding:20px;color:#111}'+
+    'h1{color:#16A34A;border-bottom:2px solid #16A34A;padding-bottom:8px}'+
+    'h2{color:#15803D;font-size:14px;margin-top:20px}'+
+    '.summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0}'+
+    '.scard{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px}'+
+    '.scard .lbl{font-size:11px;color:#6B7280}.scard .val{font-size:18px;font-weight:bold;color:#16A34A}'+
+    'table{width:100%;border-collapse:collapse;margin-top:8px}'+
+    'th{background:#16A34A;color:white;padding:8px;text-align:left;font-size:12px}'+
+    'td{padding:7px 8px;border-bottom:1px solid #E5E7EB;font-size:12px}'+
+    'tr:nth-child(even){background:#F9FAFB}'+
+    '.footer{margin-top:30px;font-size:10px;color:#9CA3AF;text-align:center}'+
+    '</style></head><body>'+
+    '<h1>🌱 ግብርና ሱቅ — ሪፖርት</h1>'+
+    '<p style="color:#6B7280;font-size:12px">ቀን: '+now+' · ተጠቃሚ: '+(S.user||'')+'</p>'+
+    '<div class="summary">'+
+    '<div class="scard"><div class="lbl">ጠቅላላ ሽያጭ</div><div class="val">'+ETB(d.rev)+'</div></div>'+
+    '<div class="scard"><div class="lbl">ትርፍ</div><div class="val" style="color:'+(d.prof>=0?'#16A34A':'#EF4444')+'">'+ETB(d.prof)+'</div></div>'+
+    '<div class="scard"><div class="lbl">ሽያጭ ብዛት</div><div class="val">'+S.sales.length+'</div></div>'+
+    '</div>'+
+    '<h2>📦 በምድብ</h2>'+
+    '<table><tr><th>ምድብ</th><th>ዕቃ</th><th>ሽያጭ</th><th>ትርፍ</th></tr>'+catRows+'</table>'+
+    (top?'<h2>🏆 ምርጥ 5 ዕቃ</h2><table><tr><th>#</th><th>ዕቃ</th><th>ሽያጭ</th></tr>'+top+'</table>':'')+
+    '<div class="footer">ሪፖርት በ ግብርና ሱቅ ተዘጋጅቷል</div>'+
+    '</body></html>';
+  var w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();setTimeout(function(){w.print();},400);}
+  else showToast('⚠️ Popup blocked — browser settings ፈቅዱ');
+}
+
+// Generate proper PNG icon using canvas
+var canvas=document.createElement('canvas');
+canvas.width=512;canvas.height=512;
+var ctx=canvas.getContext('2d');
+// Green background circle
+var grad=ctx.createLinearGradient(0,0,512,512);
+grad.addColorStop(0,'#16A34A');
+grad.addColorStop(1,'#15803D');
+ctx.fillStyle=grad;
+ctx.beginPath();
+ctx.roundRect(0,0,512,512,80);
+ctx.fill();
+// Emoji
+ctx.font='320px serif';
+ctx.textAlign='center';
+ctx.textBaseline='middle';
+ctx.fillText('🌱',256,270);
+// Shop name
+ctx.font='bold 64px sans-serif';
+ctx.fillStyle='#ffffff';
+ctx.fillText('ግብርና',256,430);
+var iconUrl=canvas.toDataURL('image/png');
+var mf={name:'ግብርና ሱቅ',short_name:'ግብርና',start_url:'.',display:'standalone',background_color:'#16A34A',theme_color:'#16A34A',
+  icons:[
+    {src:iconUrl,sizes:'192x192',type:'image/png'},
+    {src:iconUrl,sizes:'512x512',type:'image/png'}
+  ]
+};
+document.getElementById('mp').href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/manifest+json'}));
+// Also set apple touch icon
+var link=document.createElement('link');
+link.rel='apple-touch-icon';
+link.href=iconUrl;
+document.head.appendChild(link);
+
+// ── Init ──────────────────────────────────────────────────────────────────
+var savedThresh=localStorage.getItem('grb_low_thresh');
+if(savedThresh) S.lowThreshold=+savedThresh;
+var sv=localStorage.getItem('grb_session');
+if(sv){
+  var d=loadData(sv);S.user=sv;
+  S.products=d?d.products:DEMO.products;
+  S.sales=d?d.sales:DEMO.sales;
+  S.trash=d?d.trash||[]:[]; 
+  var initCats=loadCats(sv)||(d&&d.cats?d.cats:[...DEFAULT_CATS]);
+  CATS=initCats;S.cats=initCats;S.expenses=loadExpenses(sv);S.aiHistory=loadAIHistory(sv);
+} else {
+  // load any saved data from demo/default mode
+  var dd=loadData(null);
+  if(dd){
+    S.products=dd.products||DEMO.products;
+    S.sales=dd.sales||[];
+    S.trash=dd.trash||[];
+    if(dd.cats){CATS=dd.cats;S.cats=dd.cats;}
+  }
+}
+// ── One-time auto-add: Vaytamin products ─────────────────────────────────
+(function(){
+  try{
+    var flagKey='grb_vaytamin_seed_v1_'+(S.user||'default');
+    if(localStorage.getItem(flagKey)) return;
+    var vayItems=[
+      ['Introvit',2350],['Chick Bro',380],['Oxy 70%',170],['Oxy 20%',280],
+      ['Ashityl',680],['Ashplazin',2500],['Ashmpro',450],['Y-Z',280],
+      ['Coxasan',1700],['Respimint',1900],['Intrasound',1400],['Garvital',1700],
+      ['Vit D',400],['Hepato-car',400],['Amino Grow',350],['Ashinko Lite',3600],
+      ['Starter',600],['AD3',600],['Metamin',600],['Finisher',600],
+      ['Aminotech',600],['Ashro Oral',500],['Melt',380],['Immuno Cox',400],
+      ['Viga Gro',400],['Aminwin',350],['Instrm',2600],['Peptin',2500],
+      ['Amprolium Holand',500],['Pipoxy 20%',2500],['Toothacox',800],['Inflamgo',500],
+      ['Iver',100],['2500 mg',1200],['3400 mg',1600],['300 mg',250],
+      ['Albeclin',1200],['Sulfar',350]
+    ];
+    S.products=S.products||[];
+    var existingIds={};
+    S.products.forEach(function(p){existingIds[p.id]=true;});
+    vayItems.forEach(function(it){
+      var id=uid();
+      while(existingIds[id]){id=uid();}
+      existingIds[id]=true;
+      S.products.push({id:id,name:it[0],category:'cat_mrx3fqc5rals',quantity:0,buyPrice:it[1],sellPrice:it[1],unit:'',expDate:'',desc:''});
+    });
+    saveData(S.user,S.products,S.sales,S.trash,S.cats||CATS);
+    localStorage.setItem(flagKey,'1');
+  }catch(e){}
+})();
+
+window.addEventListener('online',function(){render();});
+window.addEventListener('offline',function(){render();});
+render();
+</script>
+</body>
+</html>
